@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>stations</title>
+</head>
+<body>
+	{% for station in stations %}
+	<p>{{station.address}}:{{station.number}}</p>
+	{% endfor %}
+
+</body>
+</html>
