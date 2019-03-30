@@ -1,7 +1,8 @@
 
-from flask import Flask, render_template, jsonify     
+from flask import Flask, render_template, jsonify ,request    
 from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
+from sklearn.linear_model import LinearRegression
 # flask edition:0.12
 
 class Config(object):
@@ -79,9 +80,16 @@ def root():
 def get_all_stations():
     # query the database
     stations = StationFix.query.all()
+    stations_recent = db.session.query(Station.number,Station.available_bikes,Station.available_bike_stands).order_by(Station.time.desc()).limit(113).all()
     station_li = []
     for station in stations:
-        station_li.append(station.to_dict())
+        station = station.to_dict()
+        for row in stations_recent:
+            if station['number'] == row[0]:
+                station['available_bikes']=row[1]
+                station['available_bike_stands']=row[2]
+                break
+        station_li.append(station)   
     return jsonify(stations=station_li)
 
 #query single station and return 'json' file )
@@ -115,6 +123,19 @@ def get_stations(station_id):
 def get_weather(station_id):
     row = db.session.query(Station.weather, Station.icon, Station.temperature, Station.humidity, Station.wind_speed, Station.future_weather, Station.future_temperature, Station.future_icon, Station.time).filter_by(number=station_id).order_by(Station.time.desc()).first()
     return jsonify(station_wheather = row)
+
+@app.route("/predict/<int:station_id>")
+def predict(station_id):
+    # now we can call various methods over model as as:
+    # Let X_test be the feature for which we want to predict the output
+    rows = Station.query.filter_by(number=station_id).order_by(Station.time.desc()).all()
+    row = []
+    for i in rows:
+        row.append(i.to_dict())
+#     rows = db.session.query(Station.weather, Station.icon, Station.temperature, Station.humidity, Station.wind_speed, Station.future_weather, Station.future_temperature, Station.future_icon, Station.time).filter_by(number=station_id).order_by(Station.time.desc()).all()
+#     result = model.predict(X_test)
+#     return jsonify(result)
+    return jsonify(row = row)
 
 if __name__ == '__main__':
     app.run(debug=True)
