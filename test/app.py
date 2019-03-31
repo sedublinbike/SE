@@ -3,6 +3,7 @@ from flask import Flask, render_template, jsonify ,request
 from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
 from sklearn.linear_model import LinearRegression
+from sqlalchemy import func,extract
 # flask edition:0.12
 
 class Config(object):
@@ -124,18 +125,23 @@ def get_weather(station_id):
     row = db.session.query(Station.weather, Station.icon, Station.temperature, Station.humidity, Station.wind_speed, Station.future_weather, Station.future_temperature, Station.future_icon, Station.time).filter_by(number=station_id).order_by(Station.time.desc()).first()
     return jsonify(station_wheather = row)
 
-@app.route("/predict/<int:station_id>")
-def predict(station_id):
+@app.route("/predict")
+def predict():
+    station_id = request.form.get('station')
+    date = request.form.get('date')
+    
     # now we can call various methods over model as as:
     # Let X_test be the feature for which we want to predict the output
-    rows = Station.query.filter_by(number=station_id).order_by(Station.time.desc()).all()
-    row = []
-    for i in rows:
-        row.append(i.to_dict())
+#     rows = db.session.query(Station.number,Station.available_bikes,Station.available_bike_stands,Station.weather,Station.temperature,Station.time).filter_by(number=station_id).order_by(Station.time.desc()).all()
+#     rows = db.session.query(func.date_format(Station.time,'%Y-%m-%d_%H:%i:%S').label('date'),Station.number,Station.available_bikes,Station.available_bike_stands,Station.weather,Station.temperature).filter_by(number=station_id).order_by(Station.time.desc()).group_by().all()
+    rows = db.session.query(func.date_format(Station.time,'%Y-%m-%d_%H').label('date'),Station.available_bikes).filter_by(number=station_id,extract()).order_by(Station.time.desc()).group_by('month').all()
+#     row = []
+#     for i in rows:
+#         row.append(i.to_dict())
 #     rows = db.session.query(Station.weather, Station.icon, Station.temperature, Station.humidity, Station.wind_speed, Station.future_weather, Station.future_temperature, Station.future_icon, Station.time).filter_by(number=station_id).order_by(Station.time.desc()).all()
 #     result = model.predict(X_test)
 #     return jsonify(result)
-    return jsonify(row = row)
+    return jsonify(rows = rows)
 
 if __name__ == '__main__':
     app.run(debug=True)
