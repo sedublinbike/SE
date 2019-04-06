@@ -5,6 +5,7 @@ import pandas as pd
 # from sklearn.linear_model import LinearRegression
 from sqlalchemy import func,extract
 from _operator import not_
+import datetime
 # flask edition:0.12
 
 class Config(object):
@@ -115,6 +116,11 @@ def get_all_stations():
 @app.route("/available/<int:station_id>") 
 def get_stations(station_id):
     station_recent = Station.query.filter_by(number=station_id).order_by(Station.time.desc()).first().to_dict()
+    
+    recent_time = datetime.datetime.strptime(station_recent['time'],"%Y-%m-%d_%H:%M:%S")+datetime.timedelta(hours=1)
+    if recent_time<datetime.datetime.now():
+        station_recent['time'] = str(recent_time)
+    
     rows = db.session.query(Station.time,Station.available_bike_stands,Station.available_bikes).filter_by(number=station_id).order_by(Station.time.desc()).all()
     df = pd.DataFrame(rows,columns = ['time','available_bikes','available_bike_stands'])
     df['time'] = pd.to_datetime(df['time'],format="%Y-%m-%d_%H:%M:%S")
