@@ -2,8 +2,9 @@
 from flask import Flask, render_template, jsonify ,request    
 from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
-from sklearn.linear_model import LinearRegression
+# from sklearn.linear_model import LinearRegression
 from sqlalchemy import func,extract
+from _operator import not_
 # flask edition:0.12
 
 class Config(object):
@@ -73,11 +74,27 @@ class Station(db.Model):
 
 # this route simply serves the map page
 @app.route('/')
-def root():
-    return render_template('test.html')
- 
+def index():
+    return render_template('HomePage.html')
+
+@app.route('/all_stations')
+def show_map():
+    return render_template('map.html')
+
+@app.route('/search')
+def search_page():
+    return render_template('Search.html')
+
+@app.route('/prediction')
+def prediction_page():
+    return render_template('Prediction.html')
+
+@app.route('/our_team')
+def show_teaminfo():
+    return render_template('OurTeam.html')
+
 #query all the station and return 'json' file 
-@app.route("/stations", methods=["GET","POST"])
+@app.route("/stations")
 def get_all_stations():
     # query the database
     stations = StationFix.query.all()
@@ -132,9 +149,17 @@ def predict():
     
     # now we can call various methods over model as as:
     # Let X_test be the feature for which we want to predict the output
-#     rows = db.session.query(Station.number,Station.available_bikes,Station.available_bike_stands,Station.weather,Station.temperature,Station.time).filter_by(number=station_id).order_by(Station.time.desc()).all()
+#     while True:
+#         date = date-7
+    rows = db.session.query(Station.number,Station.available_bikes,Station.available_bike_stands,Station.weather,Station.temperature,Station.time).filter(Station.number==station_id,Station.weather.isnot(None)).order_by(Station.time.desc()).all()
+        
+    
+
+#          if rows == NoneType:
+#             break
+        
 #     rows = db.session.query(func.date_format(Station.time,'%Y-%m-%d_%H:%i:%S').label('date'),Station.number,Station.available_bikes,Station.available_bike_stands,Station.weather,Station.temperature).filter_by(number=station_id).order_by(Station.time.desc()).group_by().all()
-    rows = db.session.query(func.date_format(Station.time,'%Y-%m-%d_%H').label('date'),Station.available_bikes).filter_by(number=station_id,extract()).order_by(Station.time.desc()).group_by('month').all()
+#     rows = db.session.query(func.date_format(Station.time,'%Y-%m-%d_%H').label('date'),func.count(Station.available_bikes)).filter_by(number=station_id).order_by(Station.time.desc()).all()
 #     row = []
 #     for i in rows:
 #         row.append(i.to_dict())
