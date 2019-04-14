@@ -1,1 +1,7 @@
 this folder is for backup
+
+mysqldump  --add-drop-table -uusername -ppassword -database databasename > backupfile.sql
+
+mysqldump -hhostname -uusername -ppassword -database databasename | gzip > backupfile.sql.gz
+
+mysqldump -hhostname -uusername -ppassword databasename specific_table1 specific_table2 > backupfile.sql
