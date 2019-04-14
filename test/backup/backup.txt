@@ -5,3 +5,9 @@ mysqldump  --add-drop-table -uusername -ppassword -database databasename > backu
 mysqldump -hhostname -uusername -ppassword -database databasename | gzip > backupfile.sql.gz
 
 mysqldump -hhostname -uusername -ppassword databasename specific_table1 specific_table2 > backupfile.sql
+
+
+
+aws rds describe-db-instance-automated-backups --db-instance-identifier DBInstanceIdentifier 
+OR
+aws rds describe-db-instance-automated-backups --dbi-resource-idDbiResourceId
