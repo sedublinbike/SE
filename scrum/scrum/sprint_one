@@ -1,0 +1,106 @@
+Sprint one
+W4 day2
+discuss the project goal
+and set the featyre of the Dublinbike derived app
+agreed on form a team and know about the teammate
+introduce each team member's strenth and background
+W4 day3
+members search for material on slask and AWS RDS
+agree on build a shared document
+W4 day4
+learning scrum
+agreed on meet five minutes per day
+sign up for being master
+and devided the project into four springs, each for two weeks
+learning to built trello.com
+W4 day5 
+start to build burndown chart
+set the goal for spring one:
+    1)form a team
+    2)learn agile
+    3)understand the project needs
+    4)get data through API
+    5)put the data into AWS RDS
+
+estimate the time/workload for each task
+    1)2 hours --finished
+    2)5 hours --finished
+    3)2 hours --finished
+    4)10 hours --including reading documents
+    5)15 hours
+total around 35 hours
+
+build the burndwon chart
+W5 day1
+start the first scrum meeting:
+
+today:
+sign up for JCD API and get the key
+think of the framework of the dubbike database
+sign up for the Trello and invide other members
+
+tomorrow:
+build and linked with the AWS RDS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+
+problem:
+1) how to build the goal for the other three sprints
+    ---sprint two/three/four
+W5 day2
+sign up for a team github account https://github.com/sedublinbike
+build AWS RDS
+upload the scraper file into the SE respotory
+
+problem：
+failure in connection with the database?
+ec2 8G or 20G?
+
+tomorrow:
+find the correct conntect
+dataframe create
+clean data----choose the needed columes
+
+W5 day3
+
+discover only one stack's infomation
+and we find there is a break in the scirpt of the ppt
+
+we find that when we set up the rds the VPC security group need to include specific network and then we build a new vertial network
+
+discuss of the database structure of builting a table of data
+
+and then we  would like to bulid another table for the fixed position to decrease the useage of memory
+
+Problem:
+we find a warning in build the rds:
+图片: https://uploader.shimo.im/f/khWy6Jgq7Kc0kpL1.png
+
+W5 day4
+builting two table for data
+one fixed station table
+
+solve the invalidparameter by change to another account
+
+discuss the goal of second sprint with tutor-----learn flask and make the web application
+W5 day5
+change time stemp into date with functhion
+
+link the AWS RDS with MySQL workbench
+
+problem:
+not completed the goal of first sprint yet in friday
+W5 day6
+continue to work on the first sprint
+
+change the juputer versin into python ducument and upload to github
+
+build three table in the db in total
+W5 day7
+add remark
+
+test
+
+sprint review
+learn agile
+learn aws rds and ec2
+cinnect to database
+design database
