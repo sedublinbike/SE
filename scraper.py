@@ -16,8 +16,8 @@ import datetime
 import pymysql
 # from IPython.display import display
 
-APIKEY = "8e9d2b248d3b27756984b6054e3c5983d7fa824b"
-api_key = "20d3b6653e415690beee865d7c7eb8f4"
+APIKEY = "*******************************"
+api_key = "*****************************"
 NAME = "Dublin"
 STATIONS_URI = "https://api.jcdecaux.com/vls/v1/stations"
 URI="dbbikes12.c5cm18ftdu4w.eu-west-1.rds.amazonaws.com"
