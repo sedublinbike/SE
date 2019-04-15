@@ -1,0 +1,22 @@
+2.1 Teamwork
+We form a group of three students to do this project. At the beginning of sprint one, three of us are not quite familiar with each other. But as we set up a really great communication style and way to solve disagreement, we get a pretty efficiency on discussion and teamwork. At the end of this project, when we review what we have achieved, beyond learning the technical skills such as cloud service, Falsk(back-end), modeling, we realize that the best achievement of this project is learning and trying to cooperate with other efficiently under an advanced team cooperation method: Agile and Scurm.
+
+We have divided the whole project period into four sprints and make sure every team member has an opportunity to be the sprint master of at least one sprint and get the idea of how to set up daily stand up meeting and organize team discussion.
+
+Sprint	Sprint Master	Main Achievement
+One	Anna Xuejiao Ge	Set up the EC2 and RDS, Group Github account
+learn SCRUM, Design data structure
+Two	Anna Xuejiao Ge	Achieve the back-end using FLASK
+Connect with Google API
+Three	Menghao Su	Achieve analysis based on hourly and daily chart
+Add in weather API
+Four	Renjie Fu	Train, test and deploy the predict model,
+Achieve the route scheduling function
+
+The way we divided our workload is not set a big part like back-end/front-end to each specific team member so that when one person meet a particular difficulty, others may not know how it is going on and unable to provide new idea or solve the problem together. We always have a discussion before going into every topic, set the sub goals for it and then divide the sub tasks to each team member. And then we can learn the needed knowledge together and help each other. Besides, knowing what and how the other’s part is look like help us to debug and communicate more efficiently.
+
+We all feel grateful to be in such a fantastic team and work together. Everyone in our team shows a humble attitude and everyone learns quite a lot from each other. We agree on and obey the way to solve disagreement from the beginning to the end. When we have different ideas, always find a nice way to understand each other’s thinking without misunderstanding, and try multiple ways to achieve the goal. And then we would try to find the most efficient solution. And for the other options, we never regard them as a waste of time as they also provide a useful and valuable learning opportunity. 
+
+Everyone in our team could share our own opinion efficiently and we all like to learn more and do more for our project. We all enjoy sharing what we learned with other teammates and other students as well. We believe this is just what a good team should be and we are all proud of it.
+
+Thanks our lecturer Lawlor Aonghus and tutor Karl Roe for nice and patient guidance and help to understand the whole project goal and divide the project into four sprints. Lawlor and Karl help us to understand the necessary knowledge on scrum, flask, could service, and the structure, design pattern and real case, which are used in our project and point us what we should continue to learn and achieve in the future.
