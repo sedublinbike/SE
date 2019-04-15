@@ -1,0 +1,37 @@
+1.	Project Overview
+1.1	Introduction
+Dublin Bike is a public bicycle rental scheme which has operated in the city of Dublin since 2009. As a user-friendly software, Dublin Bike Monitor is mainly used to monitor, analyze and predict the Dublin Bike availability based on the historical data and give guidance for user on their travel plan.
+All of the code/graph/notes are available on GITHUB at: https://github.com/sedublinbike/SE
+And the working EC2 address of the live website is:
+https://github.com/sedublinbike/SE
+The contribution of our group team member is:
+Name	Contribution
+Menghao Su	34%
+Renjie Fu	33%
+Anna Xuejiao Ge	33%
+
+
+1.2	Objective
+The main object of this software is to give users an overall understanding of the coverage of the Dublin Bike and encourage more people to travel by bike and achieve ‘Green transportation’ as well as ‘Smart city’.
+
+1.3	Target
+This monitor software helps users to 
+1)	Get a better look at the usage status of Dublin Bike
+2)	Get some suggestion on how they can get a bike from a nearby station with sufficient bikes, as well as, in a nice weather.
+
+1.4	Function
+There are four main functions of this software:
+1)	Display the distribution of Dublin bike
+2)	Show the availability and weather condition of each station
+3)	Predict the future weather and availability of a specific station
+4)	Show the analytics tendency of each station hourly and daily
+5)	Schedule the route for user from a appointed start point
+
+1.5	Structure
+
+
+1.6	Feature
+1)	Cloud-based: This software deploys all the program and data on the AWS RDS and EC2 running 24/7.
+2)	Chart-vitalization: Chart is widely used in our software to give users a direct and clear picture of the distribution and different color of the marker to show the different availability of each station.
+3)	Accurate predict model: We achieve 80% accuracy rate after trying dour different model.
+
