@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB13DSvYSxFIptwyDuFm4oqFuAeMJiLDmg&amp;callback=initMap">
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript">
+        var xmlhttp = new XMLHttpRequest();
+        var link = "http://127.0.0.1:5000/stations";
+
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var parsedObj = JSON.parse(xmlhttp.responseText);
+                getStationList(parsedObj);
+                showweather(parsedObj);
+
+            }
+        };
+
+        xmlhttp.open("GET", link, true);
+        xmlhttp.send();
+        
+        
+
+
+        function getStationList() {
+            var stationgroup = new Array();
+            var everystation = JSON.parse(xmlhttp.responseText).stations;
+            var bikestation = document.getElementById("stationlist");
+            for (let j = 0; j <= everystation.length; j++) {
+                var stationaddress = everystation[j].address;
+                if (stationgroup.indexOf(stationaddress) == -1) {
+                    bikestation.innerHTML += "<option>" + stationaddress + "</option>";
+                    stationgroup.push(stationaddress);
+                }
+
+
+
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+        function myObject() {
+            $.ajax({
+                url: "http://127.0.0.1:5000/stations",
+                type: "get",
+                dataType: "json",
+                success: function(content) {
+                    var markers = content.stations;
+                    var mapOptions = {
+                        center: new google.maps.LatLng(53.346763, -6.2568436),
+                        zoom: 8,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                    var infoWindow = new google.maps.InfoWindow();
+                    var latlngbounds = new google.maps.LatLngBounds();
+                    var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+                    document.getElementById("dvWeather").innerHTML = '';
+//                    var weatherInfo1 = "<table border=1>";
+//                    weatherInfo1 += "<tr><th>Station Name</th><th>Weather</th><th>Icon</th><th>Temperature</th><th>Humidity</th><th>Wind Speed</th><th>Future Weather</th></tr>";
+
+
+                    for (var i = 0; i < markers.length; i++) {
+                        var data = markers[i];
+                        
+                        var myLatlng = new google.maps.LatLng(data.position_lat, data.position_lng);
+                        var marker = new google.maps.Marker({
+                            position: myLatlng,
+                            map: map,
+
+                        });
+                        
+
+                        (function(marker, data) {
+                            google.maps.event.addListener(marker, "click", function(e) {
+                                var basicurl = "http://127.0.0.1:5000/available/";
+                                $.ajax({
+                                    url: basicurl + data.number,
+                                    type: "get",
+                                    dataType: "json",
+                                    success: function(content) {
+                                        var bikes = content.station_recent;
+
+                                        infoWindow.setContent("<div style = 'width:200px;min-height:40px'>" + "Last Updated Time: " + "<br>" + bikes.time + "<br><br>" + "Station Number: " + data.number + "<br>" + "Full Address: " + data.address + "<br>" + "Position: " + data.position_lat + ", " + data.position_lng + "<br>" + "Contract Name: " + data.contract_name + "<br><br>" + "Available Bikes: " + bikes.available_bikes + "<br>" + "Bike Stands: " + bikes.bike_stands + "<br>" + "Available Bikes Stands: " + bikes.available_bike_stands + "<br>" + "Bonus: " + data.bonus + "<br>" + "Status: " + bikes.status + "</div>");
+                                        infoWindow.open(map, marker);
+                                        
+//                                        weatherInfo1 += "<tr><td>" + data.address + "</td><td>" + bikes.weather + "</td><td>" + bikes.icon + "</td><td>" + bikes.temperature + "</td><td>" + bikes.humidity + "</td><td>" + bikes.wind_speed + "</td><td>" + bikes.future_weather + "</td></tr>";
+                                        
+                                    }
+                                });
+
+                            });
+                        })(marker, data);
+                        latlngbounds.extend(marker.position);
+                    }
+//                    weatherInfo1 += "</table>";
+//                    document.getElementById("dvWeather").innerHTML = weatherInfo1;
+
+                    var bounds = new google.maps.LatLngBounds();
+                    map.setCenter(latlngbounds.getCenter());
+                    map.fitBounds(latlngbounds);
+
+                }
+            });
+        }
+
+
+
+
+        function choose() {
+            document.getElementById("dvWeather").innerHTML = '';
+            var everystation = JSON.parse(xmlhttp.responseText).stations;
+            var mapOptions = {
+                center: new google.maps.LatLng(53.346763, -6.2568436),
+                zoom: 13,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var infoWindow = new google.maps.InfoWindow();
+            var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+
+
+            var bikestation = document.getElementById("stationlist").value;
+            
+//            var weatherInfo1 = "<table border=1>";
+//            weatherInfo1 += "<tr><th>Station Name</th><th>Weather</th><th>Icon</th><th>Temperature</th><th>Humidity</th><th>Wind Speed</th><th>Future Weather</th></tr>";
+
+            for (var i = 0; i < everystation.length; i++) {
+                var data = everystation[i];
+
+                if ((bikestation == data.address) || (bikestation == '')) {
+                    var myLatlng = new google.maps.LatLng(data.position_lat, data.position_lng);
+                    var marker1 = new google.maps.Marker({
+                        position: myLatlng,
+                        map: map,
+
+                    });
+                    (function(marker1, data) {
+                        google.maps.event.addListener(marker1, "click", function(event) {
+                            var basicurl = "http://127.0.0.1:5000/available/";
+                            $.ajax({
+                                url: basicurl + data.number,
+                                type: "get",
+                                dataType: "json",
+                                success: function(content) {
+                                    var bikes = content.station_recent;
+
+                                    infoWindow.setContent("<div style = 'width:200px;min-height:40px'>" + "Last Updated Time: " + "<br>" + bikes.time + "<br><br>" + "Station Number: " + data.number + "<br>" + "Full Address: " + data.address + "<br>" + "Position: " + data.position_lat + ", " + data.position_lng + "<br>" + "Contract Name: " + data.contract_name + "<br><br>" + "Available Bikes: " + bikes.available_bikes + "<br>" + "Bike Stands: " + bikes.bike_stands + "<br>" + "Available Bikes Stands: " + bikes.available_bike_stands + "<br>" + "Bonus: " + data.bonus + "<br>" + "Status: " + bikes.status + "</div>");
+                                    infoWindow.open(map, marker1);
+                                    
+                                    
+                                }
+                            });
+
+                        });
+
+                  })(marker1, data);
+
+                }
+
+
+
+
+
+
+
+
+            }
+//            weatherInfo1 += "</table>";
+//            document.getElementById("dvWeather").innerHTML = weatherInfo1;
+
+           
+
+        }
+
+        
+        
+        function showweather() {
+            document.getElementById("dvWeather").innerHTML = '';
+            var everystation = JSON.parse(xmlhttp.responseText).stations;
+            var bikestation = document.getElementById("stationlist").value;
+            var weatherInfo1 = "<table border=1>";
+            weatherInfo1 += "<tr><th>Station Name</th><th>Weather</th><th>Icon</th><th>Temperature</th><th>Humidity</th><th>Wind Speed</th><th>Future Weather</th></tr>";
+            for (var i = 0; i < everystation.length; i++) {
+                var data = everystation[i];
+                var basicurl = "http://127.0.0.1:5000/available/";
+                            $.ajax({
+                                url: basicurl + data.number,
+                                type: "get",
+                                dataType: "json",
+                                success: function(content) {
+                                var bikes = content.station_recent;
+                                 
+                if ((bikestation == data.address) || (bikestation == '')) {
+                    weatherInfo1 += "<tr><td>" + data.address + "</td><td>" + bikes.weather + "</td><td>" + bikes.icon + "</td><td>" + bikes.temperature + "</td><td>" + bikes.humidity + "</td><td>" + bikes.wind_speed + "</td><td>" + bikes.future_weather + "</td></tr>";
+                    
+                }
+                                    }
+                                });
+            }
+            weatherInfo1 += "</table>";
+            document.getElementById("dvWeather").innerHTML = weatherInfo1;
+            
+        }     
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+        myObject();
+    </script>
+    <div id="dvMap" style="width: 70%; height: 600px; float: left"> </div>
+    <div id="dvWeather" style="width: 30%; height: 600px; float: left; background-color:darkgrey"></div>
+        
+
+        <div style="display: inline; position: absolute; left: 800px; top: 700px">
+            <p style="float: left; color:black; font-weight: 600">Station Name&nbsp&nbsp&nbsp</p>
+            <form style="float: left; margin-top: 18px; height: 20px">
+                <select name="stationlist" id="stationlist" style="float: left; width: 200px; height: 20px">
+                    <option></option>
+                </select>
+            </form>
+        </div>
+
+    
+
+    <div style="display: inline; position: absolute; left: 1190px; top: 700px">
+        <button type="button" onclick="choose()" style="position: relative; top: 15px">
+            Submit</button>
+    </div>
+</body>
+
+</html>
