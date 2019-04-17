@@ -9,6 +9,7 @@ import datetime
 # flask edition:0.12
 import time
 import os
+import datetime
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.feature_extraction import DictVectorizer
 from app_.translate_time import TimeStampToTime,get_FileModifyTime
@@ -159,7 +160,7 @@ def get_weather(station_id):
 def predict():
     station_id = request.form.get('station')
     date = request.form.get('date')
-
+    weekday = dateTime_p = datetime.datetime.strptime(date,'%Y-%m-%d').weekday()
 # aquire the 'dbbikes_model.pkl' last modified time and the current time,if they are the same day, system will not train the data again 
     file_modify_time =  get_FileModifyTime('dbbikes_model.pkl')
     now = TimeStampToTime(time.time())
@@ -173,7 +174,7 @@ def predict():
         model = joblib.load("dbbikes_model.pkl")
     
 #     df = create_predict_set(station_id, date)
-    df = create_predict_set(station_id,date)
+    df = create_predict_set(station_id,weekday)
     prediction_data = list(model.predict(df))
     
     return jsonify(prediction_data = prediction_data )
