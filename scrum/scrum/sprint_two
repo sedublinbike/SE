@@ -1,0 +1,47 @@
+Sprint Two
+W6 day1
+set up a new ec3
+pip necessary package
+
+discuss the table relation
+
+learn the basic nouns of flask
+W6 day2
+failed to upload the script.py onto ec2
+may because of the lack of some package in the vertial environment
+
+try to use yml and upload the whole local environment
+
+finally Karl helped us to install as MySQLdb()
+
+图片: https://uploader.shimo.im/f/ZpuBPWb2EoMycAFU.png
+
+W6 day3
+learn falsk basic
+set the goal for sprint two
+review sprint one
+
+W6 day4
+prepare for network exam
+W6 day5
+self study about google api
+read the document of google map developer
+
+W7 day1
+build the main function of flask
+try to add mark on the gogle map 
+build event with javascript
+
+lecture ------protocol as document (need to do)
+
+W7 day2
+
+
+W7 day3
+
+
+W7 day4
+
+W7 day5
+天气api 十个选一个 加预测天气
+
