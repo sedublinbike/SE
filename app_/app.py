@@ -174,7 +174,7 @@ def predict():
     
 #     df = create_predict_set(station_id, date)
     df = create_predict_set(station_id,date)
-    prediction_data = model.predict(df)
+    prediction_data = list(model.predict(df))
     
     return jsonify(prediction_data = prediction_data )
     
