@@ -1,4 +1,4 @@
-## this is the py file for flask
+
 from flask import Flask, render_template, jsonify ,request    
 from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
@@ -7,6 +7,13 @@ from sqlalchemy import func,extract
 from _operator import not_
 import datetime
 # flask edition:0.12
+import time
+import os
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.feature_extraction import DictVectorizer
+from app_.translate_time import TimeStampToTime,get_FileModifyTime
+from prediction.predictor import predict_,predict_model,create_predict_set
+import joblib
 
 class Config(object):
     """setting the configuration"""
@@ -80,7 +87,7 @@ def index():
 
 @app.route('/all_stations')
 def show_map():
-    return render_template('Map.html')
+    return render_template('map.html')
 
 @app.route('/search')
 def search_page():
@@ -90,9 +97,9 @@ def search_page():
 def prediction_page():
     return render_template('Prediction.html')
 
-@app.route('/route')
+@app.route('/our_team')
 def show_teaminfo():
-    return render_template('Route.html')
+    return render_template('OurTeam.html')
 
 #query all the station and return 'json' file 
 @app.route("/stations")
@@ -152,27 +159,25 @@ def get_weather(station_id):
 def predict():
     station_id = request.form.get('station')
     date = request.form.get('date')
-    
-    # now we can call various methods over model as as:
-    # Let X_test be the feature for which we want to predict the output
-#     while True:
-#         date = date-7
-    rows = db.session.query(Station.number,Station.available_bikes,Station.available_bike_stands,Station.weather,Station.temperature,Station.time).filter(Station.number==station_id,Station.weather.isnot(None)).order_by(Station.time.desc()).all()
-        
-    
 
-#          if rows == NoneType:
-#             break
-        
-#     rows = db.session.query(func.date_format(Station.time,'%Y-%m-%d_%H:%i:%S').label('date'),Station.number,Station.available_bikes,Station.available_bike_stands,Station.weather,Station.temperature).filter_by(number=station_id).order_by(Station.time.desc()).group_by().all()
-#     rows = db.session.query(func.date_format(Station.time,'%Y-%m-%d_%H').label('date'),func.count(Station.available_bikes)).filter_by(number=station_id).order_by(Station.time.desc()).all()
-#     row = []
-#     for i in rows:
-#         row.append(i.to_dict())
-#     rows = db.session.query(Station.weather, Station.icon, Station.temperature, Station.humidity, Station.wind_speed, Station.future_weather, Station.future_temperature, Station.future_icon, Station.time).filter_by(number=station_id).order_by(Station.time.desc()).all()
-#     result = model.predict(X_test)
-#     return jsonify(result)
-    return jsonify(rows = rows)
+# aquire the 'dbbikes_model.pkl' last modified time and the current time,if they are the same day, system will not train the data again 
+    file_modify_time =  get_FileModifyTime('dbbikes_model.pkl')
+    now = TimeStampToTime(time.time())
+    
+    if now == file_modify_time:
+        model = joblib.load("dbbikes_model.pkl")
+    else:
+        rows = db.session.query(Station.number,Station.available_bikes,Station.available_bike_stands,Station.weather,Station.temperature,Station.time).filter(Station.weather.isnot(None)).order_by(Station.time.desc()).all()
+        df = pd.DataFrame(rows,columns = ['number','available_bikes','available_bike_stands','weather','temperature','time'])
+        predict_(df)
+        model = joblib.load("dbbikes_model.pkl")
+    
+#     df = create_predict_set(station_id, date)
+    df = create_predict_set(station_id,date)
+    prediction_data = model.predict(df)
+    
+    return jsonify(prediction_data = prediction_data )
+    
 
 if __name__ == '__main__':
     app.run(debug=True)
