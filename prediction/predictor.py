@@ -27,18 +27,21 @@ def predict_model(features,target):
 
 
     
-def create_predict_set(station,weekday):
-    dic = {}
-    dic['hour'] = [i for i in range(24)]
-    dic['weekday'] = [weekday for i in range(24)]
-    dic['number'] = [station for i in range(24)]
-    dic['weather'] = ['broken clouds', 'clear sky', 'drizzle', 'few clouds','broken clouds','broken clouds', 'clear sky', 'drizzle', 'few clouds','broken clouds', 'clear sky', 'drizzle', 'few clouds', 'fog',
+def create_predict_set():
+    
+    stations =[i for i in range(2,116) if i !=20]
+    weekdays =[i for i in range(7)] 
+    dic1 = {}
+    dic1['number'] = [station  for weekday in weekdays for station in stations for i in range(24)]
+    dic1['hour'] = [i  for weekday in weekdays for station in stations for i in range(24)]
+    dic1['weekday'] = [weekday for weekday in weekdays for station in stations for i in range(24)]
+    dic1['weather'] = ['broken clouds', 'clear sky', 'drizzle', 'few clouds','broken clouds','broken clouds', 'clear sky', 'drizzle', 'few clouds','broken clouds', 'clear sky', 'drizzle', 'few clouds', 'fog',
        'heavy intensity rain', 'light intensity drizzle',
        'light intensity drizzle rain', 'light intensity shower rain',
        'light rain', 'mist', 'moderate rain', 'overcast clouds',
-       'scattered clouds', 'shower rain'] 
-    dic['temperature'] =[5.0,5.0,5.0,5.0,5.0,5.0,6.0,7.0,8.0,9.0,10.0,11.0,11.0,11.0,11.0,11.0,11.0,10.0,9.0,8.0,7.0,6.0,6.0,5.0]
-    df = pd.DataFrame(dic)
+       'scattered clouds', 'shower rain'] *113*7
+    dic1['temperature'] =[5.0,5.0,5.0,5.0,5.0,5.0,6.0,7.0,8.0,9.0,10.0,11.0,11.0,11.0,11.0,11.0,11.0,10.0,9.0,8.0,7.0,6.0,6.0,5.0]*113*7
+    df = pd.DataFrame(dic1)
     df[['weather','hour','weekday','number']]=df[['weather','hour','weekday','number']].astype('category')
     dicv = DictVectorizer(sparse = False)
     df = dicv.fit_transform(df.to_dict(orient="records"))    
