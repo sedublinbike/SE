@@ -8,6 +8,7 @@ def predict_(df):
     df['time'] = pd.to_datetime(df['time'],format="%Y-%m-%d_%H:%M:%S")
     df['weekday'] = [i.weekday() for i in df['time']]
     df['hour']  = [i.hour for i in df['time']]
+    df = df[df['weather'].isin(['broken clouds', 'clear sky', 'drizzle', 'few clouds', 'fog','heavy intensity rain', 'light intensity drizzle','light intensity drizzle rain', 'light intensity shower rain','light rain', 'mist', 'moderate rain', 'overcast clouds','scattered clouds', 'shower rain'])]
     df = df.set_index('time',drop = False).groupby('number').resample('H').first().ffill().reset_index(drop=True).set_index('time',drop = True)
     df[['weather','hour','weekday','number']]=df[['weather','hour','weekday','number']].astype('category')
     df = df.reset_index(drop=True)
@@ -37,7 +38,7 @@ def create_predict_set(station,weekday):
        'light rain', 'mist', 'moderate rain', 'overcast clouds',
        'scattered clouds', 'shower rain'] 
     dic['temperature'] =[6.00 for i in range(24)]
-    df = pd.DataFrame(dict)
+    df = pd.DataFrame(dic)
     df[['weather','hour','weekday','number']]=df[['weather','hour','weekday','number']].astype('category')
     dicv = DictVectorizer(sparse = False)
     df = dicv.fit_transform(df.to_dict(orient="records"))    
