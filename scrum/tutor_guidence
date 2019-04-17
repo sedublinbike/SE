@@ -1,0 +1,144 @@
+Sprint one
+
+-Shared GitHub repository setup (all contributors added and repo is cloned to each person’s
+computer).
+- EC2 instance operational with the above repository cloned onto it.
+- AWS RDS Database operational and everyone is connected via WorkBench/DataGrip.
+- AWS RDS Database has appropriate tables (i.e. static data & dynamic data).
+- Scraper running/scheduled within EC2, requesting API data and sending it to the DB regularly.
+- There should be many thousands of rows in the database now.
+- Database backups are being regularly conducted (e.g. local DB/CSV backups etc.).
+- Burndown chart from Sprint 1. (If this isn’t complete it’s okay, but it’s better to create it ASAP)
+
+
+Sprint 2
+
+
+- Investigate, research and become familiar with Flask (i.e. app.py, /static, /templates etc.)
+- Build and test a local instance of Flask (rendering a template). This does NOT need to be deployed
+to EC2 yet, just run on it locally on (i.e. 127.0.0.1:5000) to develop.
+- Thinking about industry development principals, I would like CSS, JS and HTML to be built in separate
+files (external) as opposed to internal/inline CSS/JS. This is where /static is important. If desired, you
+can develop in a single index.html file to get things working (as in HTML/CSS/JS is all in the one file),
+but I would like these separated appropriately ‘in production’.
+- Acquire a Google Maps JavaScript API key.
+- Continue maintaining all documentation.
+- Maintain and update product backlog with Trello/YouTrack/JIRA/GitKracken-Glo (or whatever you’re
+using to control feature development).
+- Consider writing a weather scraper to extract data from a weather source (API or webpage) with a
+focus on integrating it with analytics in the future. It might be interesting to see if weather (e.g. rain)
+affects bike usage. This is optional, we can discuss if you’d like to do it.
+
+
+
+- As the product owner, I would like to see the following by the end of Sprint 2:
+o Map-centric UI with some CSS styling. I’d like to get a feel for the end theme at least.
+o Fully connected Front-End UI with AWS RDS database via Flask.
+o Clickable markers on the map for every bike station in Dublin
+▪ Marker onclick events should display the station name and most recent information
+(available bikes + stands) for that specific station within an InfoBox.
+• This data should come from the Database and the API. Consider how you will
+do this within Flask.
+o Which is faster? Which is more reliable?
+
+o Dropdown that includes all station names
+▪ Onclick should display the selected station and the most recent update (available bikes
++ stands)
+• This data should come from the Database and the API. Consider how you will
+do this within Flask.
+• Which is faster? Which is more reliable?
+• Data could be displayed in a div below the dropdown somehow? Come up with
+some ideas.
+
+
+1) Please refer to what I outlined in the beginning of Sprint 2. There are a number of things that must be working before you can progress to Sprint 3: 
+•	Flask running locally, 
+•	Basic UI + Google Maps JS API working. If the UI isn’t the best, at least have mockups showing me what it will look like. 
+•	Clickable Markers that show the most recent update for a clicked marker (Available bikes + free stands etc).
+•	A dropdown with the station names. The selected station can show the most recent update about itself(Available bikes + free stands etc).
+•	Weather data is being scraped constantly (even just rainfall will suffice). This will be used in future analytics. 
+Sprint 3 (provisional outcomes)
+I need to run a few things by Aonghus/Diarmuid but this is what I would like by the end of Sprint 3. It’s a heads up and is subject to change but I will email an update in that case:
+•	Solid structure and design to the UI - Mockups should have evolved into a form of reality. With this project, focus is very much on the architecture and 'getting things to work'. But I would advise that you don’t neglect the UI. It is the first impression a user (i.e the grader) will have when they access your app! It’s also the showcase for everything you’ve been working on with the scrapers/database/server etc - it only makes sense to represent the output of all your hard work to the UI in a nice way!
+•	Additional data queries with results displayed as charts:
+o	Investigate chart generation libraries in JavaScript (there are many candidates).
+o	Line graph(s) representing weekly data at a selected station (avg. number bikes available each day of the week)
+o	Line graph(s) representing hourly data at a specific day (avg. number bikes available per hour from open - close)
+•	Data analytics
+o	Investigate if there is a relationship between bike station data and weather data (i.e. does rainfall mean more bikes are free?)
+o	Look into developing a model that represents this relationship
+o	If possible, implement this into the website in terms of a future prediction.
+•	Additional useful features
+o	Predicted weather advisor - (Should the user bring a raincoat? Should they wrap up? etc)
+o	Maybe an innovative idea or two. Impress me!
+
+0) Title + direct link to app running on EC2.
+
+1) Introduction & Scope (Why are you doing this? What are advantages to this application? Who is the product owner and why do they want this application built? Give an overview of the project and what’s to come in the report. )
+
+2) Sprint (1-4)
+- Initial Sprint Plan (Who was doing what? What werethe key objectives of this sprint? (From Sprint 2 onwards - were you catching up with work from the previous sprint? Why?)
+- Planned Features (What were the most important features that need to be completed in this sprint?)
+- Problems encountered (What was a major blockage? How did you solve it?)
+- Sprint Review (What went well? Where could you improve? On track?)
+- Burn-down Chart (Discuss why it's amazing or absolutely terrible etc.)
+
+3) Software Architecture & Technologies
+- Data Analytics (Data quality, data cleaning, data model selection, results)
+- Technologies integrated (EC2, RDS, Flask, etc...)
+- Schematic of the entire architecture you’ve created (Self explanatory, but show off the architecture you’ve created and make it clear and understandable)
+
+4) Project Delivered
+- Key features (What does your app  do? Show off the functionality you’ve been designing for the last few weeks)
+- User flow diagram (Show how your app works from a user’s perspective. This may not be that important but it can effective for explaining the app if you wish to include it)
+- Performance & Optimisations (How did you make it faster? How did you make it reliable?  etc..)
+
+5) Reflection & Future Work
+- Key Shortfalls (What held you back? What are the limitations of your app? (Maybe data or lack-thereof...)
+- Planned Improvements (How would you make the app better.. How would you develop it more?)
+- Future Features (Any features you would do if you had more time?)
+
+6) Bibliography
+- Link to a google doc with your daily stand-ups
+- Link to your team’s GitHub make it public after the submission date
+- Link to google doc with any other organisational documentation
+- Link to trello/youtrack or whatever project backlog tool you are using to track features
+
+•	Chart displaying Average Daily Data (Monday - Sunday)
+•	Chart displaying Average Hourly Data (for a day specified by the user)
+•	A functioning model using historical data (hourly or daily) to predict bike availability in the near future. Just have something.
+for Sprint 4 here is what I would like to see:
+
+Mandatory Tasks
+•	Any previous tasks from Sprint 3 completed
+•	Deployment of Flask app on EC2 (so we can access it live via a URL that will look something like:  http://ec2-35-160-109-80.us-west-2.compute.amazonaws.com/ ). The server in Flask is garbage for production. Google 'Flask Deployment’ to get going on this using Apache or an appropriate alternative server.
+•	Completed UI - Use a nice font, excellent element positioning, some responsiveness (if helps), smooth animations, a splash screen when the page loads, loaders when charts are loading etc. Even if some things aren’t functioning perfectly, if it looks complete it will feel complete. You will likely lose marks if the page looks like it "still needs more CSS".
+
+Pretty Important But Not Mandatory Tasks
+•	Optimise performance (more efficient queries if page load/chart generation is very slow (over 4-5 seconds)). Loaders are really helpful here as an alternative so the user can see something is happening!
+•	Clean up code (remove redundant code, commented out code etc.)
+•	Modularise code to external files (JS, CSS etc). If you were having issues with this and it just refuses to work, try again. But don’t dump much time into it. 
+•	Comment code (a description of what the function does is fine, no need to describe everything line-by-line).
+
+Pick n’ Mix - Optional Features
+•	Marker colour change based on bike availability. This is usually best conducted as a % expression of total bike stands (i.e. 12 bikes available when there are 40 stands = 30% availability. 0-10% = red marker, 10-40%=orange marker, +40% = green marker (or adjust % ranges to your own taste)). 
+•	Remember the last station selected by a user, then suggest this station when the user returns for faster querying (hint: LocalStorage (simpler) or Cookies)
+•	Map visualisation toggles (Night mode, cycling map overlay etc.. There are lots!)
+•	Geolocation: 
+o	Important: This can be completed using a live HTML5 Geolocation, a simulated geolocation or a user selected geolocation.
+	Please note that using a live HTML5 geolocation you may need an SSL cert when deploying the app to EC2. 
+	Instead, it is perfectly acceptable to use a hard-coded geolocation to mimic a user being somewhere in Dublin City. (Please put a '(simulated)' beside the user’s marker so the grader knows that it’s a simulated position, and not that your app is giving incorrect coordinates!).
+o	Nearest station (or stations) to my location
+o	Directions to station that actually has bikes from my location.
+o	Directions to an approrpriate station based on the user’s wish (I want to return a bike / I want to use a bike).
+o	Walking/Cycling time from my location to selected marker (you could combine this with the previous points)
+•	Weather warnings (“Watch out! Rain is expected today!”)
+•	Event warnings (“Watch out! Possible disruption due to Parade/Marathon etc..”)
+•	Save The Earth
+o	Ask user to select their station 
+o	Ask user to select destination
+o	Calculate distance between them
+o	Calculate emissions for journey (Google tells me it’s in the region of 118g/km CO2 from a car!)
+o	Tell the user how much CO2 they prevented going to the atmosphere for this journey.
+o	Tell the user that for an average year (travelling 5 days a week/10 journeys) how much they will prevent going to the atmosphere!
+
