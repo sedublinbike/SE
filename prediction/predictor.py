@@ -37,7 +37,7 @@ def create_predict_set(station,weekday):
        'light intensity drizzle rain', 'light intensity shower rain',
        'light rain', 'mist', 'moderate rain', 'overcast clouds',
        'scattered clouds', 'shower rain'] 
-    dic['temperature'] =[6.00 for i in range(24)]
+    dic['temperature'] =[5.0,5.0,5.0,5.0,5.0,5.0,6.0,7.0,8.0,9.0,10.0,11.0,11.0,11.0,11.0,11.0,11.0,10.0,9.0,8.0,7.0,6.0,6.0,5.0]
     df = pd.DataFrame(dic)
     df[['weather','hour','weekday','number']]=df[['weather','hour','weekday','number']].astype('category')
     dicv = DictVectorizer(sparse = False)
