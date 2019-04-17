@@ -98,9 +98,9 @@ def search_page():
 def prediction_page():
     return render_template('Prediction.html')
 
-@app.route('/our_team')
+@app.route('/route')
 def show_teaminfo():
-    return render_template('OurTeam.html')
+    return render_template('Route.html')
 
 #query all the station and return 'json' file 
 @app.route("/stations")
