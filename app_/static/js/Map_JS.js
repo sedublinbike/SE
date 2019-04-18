@@ -1,142 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-    <title>Prediction</title>
-    <link rel="icon" href="data:;base64,=">
-    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/all.css')}}">
-    <style>
-
-html, body {height: 100%; padding: 0; margin: 0; border: 0px; overflow-y: hidden;} 
-    
-</style>
-</head>
-
-
-<body>
-
-
-    <div id="dvMap" style="width: 75%; height: 100%; padding: 0; margin: 0; border: 0; float: right"> </div>
-    <div id="menu" style="width: 25%; height: 100%; float: right">
-
-        <div id="predict" style="width: 100%; height: 40%">
-            <div style="width: 100%; height: 10%; text-align: center">
-            <h1>Select the Station</h1>  
-            </div>
-            <div style="width: 100%; height: 15%; position: relative; top: 10%; text-align: center">
-            <select name="stationlist" id="stationlist" onchange="myObject()">
-            <option selected="selected" disabled="disabled" style='display: none' value=''></option>
-            </select>
-            </div>
-            <br>
-            <br>
-            <br>
-            <div style="width: 100%; height: 10%; text-align: center">
-            <h1>Select the Date</h1>  
-            </div>
-            <div style="width: 100%; height: 15%; position: relative; top: 10%; text-align: center">
-            <select name="futurelist" id="futurelist" onchange="daylater(); myObject()">
-            <option selected="selected" value="One Day Later" id="onelater">One Day Later</option>
-            <option value="Two Days Later" id="twolater">Two Days Later</option>
-            <option value="Three Days Later" id="threelater">Three Days Later</option>
-            <option value="Four Days Later" id="fourlater">Four Days Later</option>
-            <option value="Five Days Later" id="fivelater">Five Days Later</option>
-            <option value="Six Days Later" id="sixlater">Six Days Later</option>
-            <option value="Seven Days Later" id="sevenlater">Seven Days Later</option>
-            </select>
-            </div>
-            
-            
-            
-            
-            
-            
-
-        </div>
-
-
-        <div id="weekly" style="width: 100%; height: 30%"></div>
-        <div id="hourly" style="width: 100%; height: 30%">
-        </div>
-
-
-
-
-
-    </div>
-
-    <nav> <a href="" id="menuToggle" title="show menu"> <span class="navClosed"><i>show menu</i></span> </a> <a href="/all_stations" title="Item 1">Overall</a> <a href="search" title="Item 2">Search</a> <a href="route" title="Item 3">Route</a> <a href="/" title="Item 3">Home Page</a> </nav>
-
-
-
-
-
-
-
-
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB13DSvYSxFIptwyDuFm4oqFuAeMJiLDmg&amp;callback=initMap">
-    </script>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
-    </script>
-    <script type="text/javascript">
-        
-       var xmlhttp = new XMLHttpRequest();
-        var link = "http://127.0.0.1:5000/stations";
-
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                var parsedObj = JSON.parse(xmlhttp.responseText);
-                getStationList(parsedObj);
-                addressnumber(parsedObj);
-            }
-        };
-
-        xmlhttp.open("GET", link, true);
-        xmlhttp.send();
-
-
-
-
-        function getStationList() {
-            var stationgroup = new Array();
-            var everystation = JSON.parse(xmlhttp.responseText).stations;
-            var bikestation = document.getElementById("stationlist");
-            for (let j = 0; j <= everystation.length; j++) {
-                var stationaddress = everystation[j].address;
-                if (stationgroup.indexOf(stationaddress) == -1) {
-                    bikestation.innerHTML += "<option>" + stationaddress + "</option>";
-                    stationgroup.push(stationaddress);
-                }
-
-
-
-            }
-
-        } 
-        
-        
-        
-        
-        
-        
-        
-        function addressnumber() {
-            var dic = new Array();
-            var dicdata = JSON.parse(xmlhttp.responseText).stations;
-            for (let i = 0; i < dicdata.length; i++) {
-            dic[" " + dicdata[i].address + " "] = dicdata[i].number;
-                    }
-        }
-        
-        
-        
-        
-
-    
-     function getweek() {
+ function getweek() {
             var str = "";
             var week = new Date().getDay();
             if (week == 0) {
@@ -157,153 +19,6 @@ html, body {height: 100%; padding: 0; margin: 0; border: 0px; overflow-y: hidden
             }
             return str;
         }
-        
-        function daylater() {
-            var weeknumber;
-            var week = new Date().getDay();
-            
-            if (document.getElementById("futurelist").value == "One Day Later") {
-                               if (week == 0) {
-                weeknumber = 1;
-            } else if (week == 1) {
-                weeknumber = 2;
-            } else if (week == 2) {
-                weeknumber = 3;
-            } else if (week == 3) {
-                weeknumber = 4;
-            } else if (week == 4) {
-                weeknumber = 5;
-            } else if (week == 5) {
-                weeknumber = 6;
-            } else if (week == 6) {
-                weeknumber = 0;
-
-        }
-
-            
-        }
-            
-         else if (document.getElementById("futurelist").value == "Two Days Later") {
-            if (week == 0) {
-                weeknumber = 2;
-            } else if (week == 1) {
-                weeknumber = 3;
-            } else if (week == 2) {
-                weeknumber = 4;
-            } else if (week == 3) {
-                weeknumber = 5;
-            } else if (week == 4) {
-                weeknumber = 6;
-            } else if (week == 5) {
-                weeknumber = 0;
-            } else if (week == 6) {
-                weeknumber = 1;
-
-        }
-
-            
-        }
-            
-         else if (document.getElementById("futurelist").value == "Three Days Later") {
-            if (week == 0) {
-                weeknumber = 3;
-            } else if (week == 1) {
-                weeknumber = 4;
-            } else if (week == 2) {
-                weeknumber = 5;
-            } else if (week == 3) {
-                weeknumber = 6;
-            } else if (week == 4) {
-                weeknumber = 0;
-            } else if (week == 5) {
-                weeknumber = 1;
-            } else if (week == 6) {
-                weeknumber = 2;
-
-        }
-
-            
-        }
-            
-         else if (document.getElementById("futurelist").value == "Four Days Later") {
-            if (week == 0) {
-                weeknumber = 4;
-            } else if (week == 1) {
-                weeknumber = 5;
-            } else if (week == 2) {
-                weeknumber = 6;
-            } else if (week == 3) {
-                weeknumber = 0;
-            } else if (week == 4) {
-                weeknumber = 1;
-            } else if (week == 5) {
-                weeknumber = 2;
-            } else if (week == 6) {
-                weeknumber = 3;
-
-        }
-
-            
-        }
-            
-            
-         else if (document.getElementById("futurelist").value == "Five Days Later") {
-            if (week == 0) {
-                weeknumber = 5;
-            } else if (week == 1) {
-                weeknumber = 6;
-            } else if (week == 2) {
-                weeknumber = 0;
-            } else if (week == 3) {
-                weeknumber = 1;
-            } else if (week == 4) {
-                weeknumber = 2;
-            } else if (week == 5) {
-                weeknumber = 3;
-            } else if (week == 6) {
-                weeknumber = 4;
-
-        }
-
-            
-        }
-            
-            
-         else if (document.getElementById("futurelist").value == "Six Days Later") {
-            if (week == 0) {
-                weeknumber = 6;
-            } else if (week == 1) {
-                weeknumber = 0;
-            } else if (week == 2) {
-                weeknumber = 1;
-            } else if (week == 3) {
-                weeknumber = 2;
-            } else if (week == 4) {
-                weeknumber = 3;
-            } else if (week == 5) {
-                weeknumber = 4;
-            } else if (week == 6) {
-                weeknumber = 5;
-
-        }
-
-            
-        }
-            
-            
-    else if (document.getElementById("futurelist").value == "Six Days Later") {
-           weeknumber = week;
-        }
-        return weeknumber;    
-            
-  
-        }
-        
-        
-        
-        
-
-
 
                 (function($) {
             // Menu Functions
@@ -326,18 +41,76 @@ html, body {height: 100%; padding: 0; margin: 0; border: 0px; overflow-y: hidden
 
 
         function myObject() {
-            
+            $.ajax({
+                url: "http://127.0.0.1:5000/available/33",
+                type: "get",
+                dataType: "json",
+                success: function(content) {
+                    var dublin = content.station_recent;
+                    var temperature = document.getElementById("temperature");
+                    var description = document.getElementById("description");
+                    var humidity = document.getElementById("humidity");
+                    var wind_speed = document.getElementById("wind_speed");
+                    var future_temperature = document.getElementById("future_temperature");
+                    var future_description = document.getElementById("future_description");
+                    var station_location = document.getElementById("station_location");
+                    var temperature_icon = document.getElementById("temperature_icon");
+                    var future_temperature_icon = document.getElementById("future_temperature_icon");
 
-            
-                                    
-            
-            
-            
-            
-            
-            
-            
-            
+
+
+                    temperature.innerHTML = "<span>" + dublin.temperature + '&#176;C' + "</span>";
+                    description.innerHTML = "<span>" + dublin.weather + "</span>";
+                    humidity.innerHTML = "<span>Humidity: " + dublin.humidity + "%</span>";
+                    wind_speed.innerHTML = "<span>Wind Speed: " + dublin.wind_speed + " m/s</span>";
+                    future_temperature.innerHTML = "<span>" + dublin.future_temperature + "&#176;C</span>";
+                    future_description.innerHTML = "<span>" + dublin.future_weather + "</span>";
+
+
+                    if (dublin.icon == "01d" || dublin.icon == "01n") {
+                        document.getElementById('temperature_icon').src = '../static/images/sunny.gif';
+                    } else if (dublin.icon == "02d" || dublin.icon == "02n") {
+                        document.getElementById('temperature_icon').src = '../static/images/suncloudy.gif';
+                    } else if (dublin.icon == "03d" || dublin.icon == "03n" || dublin.icon == "04d" || dublin.icon == "04n" || dublin.icon == "50d" || dublin.icon == "50n") {
+                        document.getElementById('temperature_icon').src = '../static/images/cloudy.gif';
+                    } else if (dublin.icon == "09d" || dublin.icon == "09n") {
+                        document.getElementById('temperature_icon').src = '../static/images/rainy.gif';
+                    } else if (dublin.icon == "10d" || dublin.icon == "10n") {
+                        document.getElementById('temperature_icon').src = '../static/images/mixed.gif';
+                    } else if (dublin.icon == "11d" || dublin.icon == "11n") {
+                        document.getElementById('temperature_icon').src = '../static/images/lightning.gif';
+                    } else if (dublin.icon == "13d" || dublin.icon == "13n") {
+                        document.getElementById('temperature_icon').src = '../static/images/snowy.gif';
+                    }
+
+
+                    if (dublin.future_icon == "01d" || dublin.future_icon == "01n") {
+                        document.getElementById('future_temperature_icon').src = '../static/images/sunny.gif';
+                    } else if (dublin.future_icon == "02d" || dublin.future_icon == "02n") {
+                        document.getElementById('future_temperature_icon').src = '../static/images/suncloudy.gif';
+                    } else if (dublin.future_icon == "03d" || dublin.future_icon == "03n" || dublin.future_icon == "04d" || dublin.future_icon == "04n" || dublin.future_icon == "50d" || dublin.future_icon == "50n") {
+                        document.getElementById('future_temperature_icon').src = '../static/images/cloudy.gif';
+                    } else if (dublin.future_icon == "09d" || dublin.future_icon == "09n") {
+                        document.getElementById('future_temperature_icon').src = '../static/images/rainy.gif';
+                    } else if (dublin.future_icon == "10d" || dublin.future_icon == "10n") {
+                        document.getElementById('future_temperature_icon').src = '../static/images/mixed.gif';
+                    } else if (dublin.future_icon == "11d" || dublin.future_icon == "11n") {
+                        document.getElementById('future_temperature_icon').src = '../static/images/lightning.gif';
+                    } else if (dublin.future_icon == "13d" || dublin.future_icon == "13n") {
+                        document.getElementById('future_temperature_icon').src = '../static/images/snowy.gif';
+                    }
+
+                }
+            });
+
+
+
+
+
+
+
+
+
             $.ajax({
                 url: "http://127.0.0.1:5000/stations",
                 type: "get",
@@ -352,19 +125,6 @@ html, body {height: 100%; padding: 0; margin: 0; border: 0px; overflow-y: hidden
                     var infoWindow = new google.maps.InfoWindow();
                     var latlngbounds = new google.maps.LatLngBounds();
                     var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
-                    
-//                                                    $.ajax({
-//                                    url: "http://127.0.0.1:5000/pridict",
-//                                    type: "get",
-//                                    dataType: "json",
-//                                    success: function(content) {var predict_data = content.prediction_data;
-                                                               
-
-                    
-                    
-                    
-                    
-                    
 
                     var chart = new CanvasJS.Chart("weekly", {
                         animationEnabled: false,
@@ -417,7 +177,7 @@ html, body {height: 100%; padding: 0; margin: 0; border: 0px; overflow-y: hidden
                         animationEnabled: false,
                         theme: "dark2",
                         title: {
-                            text: "History Hourly Data on " + document.getElementById("futurelist").value
+                            text: "History Hourly Data on " + getweek()
                         },
                         data: [{
                             type: "column",
@@ -521,8 +281,6 @@ html, body {height: 100%; padding: 0; margin: 0; border: 0px; overflow-y: hidden
                         }]
                     });
                     columnchart.render();
-//                                                                }
-//                                                               });
 
                     for (var i = 0; i < markers.length; i++) {
 
@@ -565,7 +323,15 @@ html, body {height: 100%; padding: 0; margin: 0; border: 0px; overflow-y: hidden
                                         var li_bike_stands_weekly = content.li_bike_stands_weekly;
                                         var li_bike_hourly = content.li_bike_hourly;
                                         var li_bike_stands_hourly = content.li_bike_stands_hourly;
-
+                                        var temperature = document.getElementById("temperature");
+                                        var description = document.getElementById("description");
+                                        var humidity = document.getElementById("humidity");
+                                        var wind_speed = document.getElementById("wind_speed");
+                                        var future_temperature = document.getElementById("future_temperature");
+                                        var future_description = document.getElementById("future_description");
+                                        var station_location = document.getElementById("station_location");
+                                        var temperature_icon = document.getElementById("teperature_icon");
+                                        var future_temperature_icon = document.getElementById("future_teperature_icon");
 
                                         var k;
                                         if (getweek() == "Monday") {
@@ -590,7 +356,55 @@ html, body {height: 100%; padding: 0; margin: 0; border: 0px; overflow-y: hidden
                                         infoWindow.open(map, marker);
 
 
-            
+                                        temperature.innerHTML = "<span>" + bikes.temperature + '&#176;C' + "</span>";
+                                        description.innerHTML = "<span>" + bikes.weather + "</span>";
+                                        humidity.innerHTML = "<span>Humidity: " + bikes.humidity + "%</span>";
+                                        wind_speed.innerHTML = "<span>Wind Speed: " + bikes.wind_speed + " m/s</span>";
+                                        station_location.innerHTML = "<span>" + data.address + "</span>";
+                                        future_temperature.innerHTML = "<span>" + bikes.future_temperature + "&#176;C</span>";
+                                        future_description.innerHTML = "<span>" + bikes.future_weather + "</span>";
+
+
+                                        if (bikes.icon == "01d" || bikes.icon == "01n") {
+                                            document.getElementById('temperature_icon').src = '../static/images/sunny.gif';
+                                        } else if (bikes.icon == "02d" || bikes.icon == "02n") {
+                                            document.getElementById('temperature_icon').src = '../static/images/suncloudy.gif';
+                                        } else if (bikes.icon == "03d" || bikes.icon == "03n" || bikes.icon == "04d" || bikes.icon == "04n" || bikes.icon == "50d" || bikes.icon == "50n") {
+                                            document.getElementById('temperature_icon').src = '../static/images/cloudy.gif';
+                                        } else if (bikes.icon == "09d" || bikes.icon == "09n") {
+                                            document.getElementById('temperature_icon').src = '../static/images/rainy.gif';
+                                        } else if (bikes.icon == "10d" || bikes.icon == "10n") {
+                                            document.getElementById('temperature_icon').src = '../static/images/mixed.gif';
+                                        } else if (bikes.icon == "11d" || bikes.icon == "11n") {
+                                            document.getElementById('temperature_icon').src = '../static/images/lightning.gif';
+                                        } else if (bikes.icon == "13d" || bikes.icon == "13n") {
+                                            document.getElementById('temperature_icon').src = '../static/images/snowy.gif';
+                                        }
+
+
+                                        if (bikes.future_icon == "01d" || bikes.future_icon == "01n") {
+                                            document.getElementById('future_temperature_icon').src = '../static/images/sunny.gif';
+                                        } else if (bikes.future_icon == "02d" || bikes.future_icon == "02n") {
+                                            document.getElementById('future_temperature_icon').src = '../static/images/suncloudy.gif';
+                                        } else if (bikes.future_icon == "03d" || bikes.future_icon == "03n" || bikes.future_icon == "04d" || bikes.future_icon == "04n" || bikes.future_icon == "50d" || bikes.future_icon == "50n") {
+                                            document.getElementById('future_temperature_icon').src = '../static/images/cloudy.gif';
+                                        } else if (bikes.future_icon == "09d" || bikes.future_icon == "09n") {
+                                            document.getElementById('future_temperature_icon').src = '../static/images/rainy.gif';
+                                        } else if (bikes.future_icon == "10d" || bikes.future_icon == "10n") {
+                                            document.getElementById('future_temperature_icon').src = '../static/images/mixed.gif';
+                                        } else if (bikes.future_icon == "11d" || bikes.future_icon == "11n") {
+                                            document.getElementById('future_temperature_icon').src = '../static/images/lightning.gif';
+                                        } else if (bikes.future_icon == "13d" || bikes.future_icon == "13n") {
+                                            document.getElementById('future_temperature_icon').src = '../static/images/snowy.gif';
+                                        }
+
+
+
+
+
+
+
+
 
                                         var chart = new CanvasJS.Chart("weekly", {
                                             animationEnabled: true,
@@ -975,40 +789,3 @@ html, body {height: 100%; padding: 0; margin: 0; border: 0px; overflow-y: hidden
 
 
         myObject();
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</body>
-
-</html>

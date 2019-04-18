@@ -1,0 +1,11 @@
+    input {
+    vertical-align: middle;
+}
+    
+    
+    .styled-select select {
+   background: #101010;
+    color: gold;
+        border-color: gold;
+
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Route</title>
+    <link rel="icon" href="data:;base64,=">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/all.css')}}">
+    <style>
+
+html, body {height: 100%; padding: 0; margin: 0; border: 0px; overflow-y: hidden;} 
+
+
+</style>
+</head>
+
+
+<body>
+
+    <div id="floating-panel" style="width: 25%; height: 100%; float: left">
+    <div style="width: 100%; height: 30%">
+    <div style="width: 100%; height: 10%; text-align: center">
+    <h1 style="text-decoration: underline; color: darkgreen">Start</h1>
+    </div>
+    <br>
+    <div style="width: 100%; height: 10%; position: relative; left: 25%">
+    <p id="startname" style="color: darkgreen; font-weight: 600"></p>
+    </div>
+    <div style="width: 100%; height: 10%; position: relative; left: 25%">
+    <span id="startnamepre" style="color: darkgreen; font-weight: 600"></span><span id="start" style="color: darkgreen; font-weight: 600"></span>
+    </div>
+    <div style="width: 100%; height: 10%; text-align: center">
+    <h1 style="text-decoration: underline; color: orangered">Destination</h1>
+    </div>
+    <br>
+    <div style="width: 100%; height: 10%; position: relative; left: 25%">
+    <p id="endname" style="color: orangered; font-weight: 600"></p>
+    </div>
+    <div style="width: 100%; height: 10%; position: relative; left: 25%">
+    <span id="endnamepre" style="color: orangered; font-weight: 600"></span><span id="end" style="color: orangered; font-weight: 600"></span>
+    </div>
+    <br>  
+    <div style="width: 100%; height: 20%; text-align: center">
+    <button id="send" style="width: 50%; height: 80%; color: aqua; font-size: 150%; background-color: transparent; color: dodgerblue; border: 2px solid dodgerblue">Show the Route</button>
+    </div>
+        </div>
+    </div>
+    
+    <div id="map" style="width: 75%; height: 100%; float: left"> </div>
+    <nav> <a href="" id="menuToggle" title="show menu"> <span class="navClosed"><i>show menu</i></span> </a> <a href="/all_stations" title="Item 1">Overall</a> <a href="search" title="Item 2">Search</a> <a href="prediction" title="Item 3">Prediction</a> <a href="/" title="Item 3">Home Page</a> </nav>
+
+
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFj_OVOzGe5xHdcq4CqpikFfrnk7AP1p8&amp;callback=initMap">
+    </script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+    <script type="text/javascript" src="../static/js/Route_JS.js"></script>
+
+
+</body>
+
+</html>
