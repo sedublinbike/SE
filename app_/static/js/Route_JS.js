@@ -1,12 +1,16 @@
 
 
             function myObject() {
+            var getUrl = window.location;
+
+            var stations_Url = getUrl .protocol + "//" + getUrl.host + "/" + "stations";
+            var available_Url = getUrl .protocol + "//" + getUrl.host + "/"+"available/";
 
 
 
 
                 $.ajax({
-                    url: "http://127.0.0.1:5000/stations",
+                    url: stations_Url,
                     type: "get",
                     dataType: "json",
                     success: function(content) {
@@ -74,7 +78,7 @@
 
                             (function(marker, data) {
                                 google.maps.event.addListener(marker, "click", function(e) {
-                                    var basicurl = "http://127.0.0.1:5000/available/";
+                                    var basicurl = available_Url;
                                     $.ajax({
                                         url: basicurl + data.number,
                                         type: "get",

@@ -65,8 +65,14 @@ var xmlhttp = new XMLHttpRequest();
 
 
         function myObject() {
+            var getUrl = window.location;
+            var weather_Url = getUrl .protocol + "//" + getUrl.host + "/" + "available/33";
+            var stations_Url = getUrl .protocol + "//" + getUrl.host + "/" + "stations";
+            var available_Url = getUrl .protocol + "//" + getUrl.host + "/"+"available/";
+            
+        
             $.ajax({
-                url: "http://127.0.0.1:5000/available/33",
+                url: weather_Url,
                 type: "get",
                 dataType: "json",
                 success: function(content) {
@@ -134,7 +140,7 @@ var xmlhttp = new XMLHttpRequest();
 
 
             $.ajax({
-                url: "http://127.0.0.1:5000/stations",
+                url: stations_Url,
                 type: "get",
                 dataType: "json",
                 success: function(content) {
@@ -343,7 +349,7 @@ var xmlhttp = new XMLHttpRequest();
 
                         (function(marker, data) {
                             google.maps.event.addListener(marker, "click", function(e) {
-                                var basicurl = "http://127.0.0.1:5000/available/";
+                                var basicurl = available_Url;
                                 $.ajax({
                                     url: basicurl + data.number,
                                     type: "get",
@@ -839,6 +845,11 @@ var xmlhttp = new XMLHttpRequest();
 
 
         function choose() {
+            var getUrl = window.location;
+
+            var available_Url = getUrl .protocol + "//" + getUrl.host + "/"+"available/";
+            
+            
             var everystation = JSON.parse(xmlhttp.responseText).stations;
             var mapOptions = {
                 center: new google.maps.LatLng(53.346763, -6.2568436),
@@ -880,7 +891,7 @@ var xmlhttp = new XMLHttpRequest();
                     }
 
 
-                    var basicurl = "http://127.0.0.1:5000/available/";
+                    var basicurl = available_Url;
                     $.ajax({
                         url: basicurl + data.number,
                         type: "get",
@@ -1340,7 +1351,7 @@ var xmlhttp = new XMLHttpRequest();
 
                     (function(marker, data) {
                         google.maps.event.addListener(marker, "click", function(event) {
-                            var basicurl = "http://127.0.0.1:5000/available/";
+                            var basicurl = available_Url;
                             $.ajax({
                                 url: basicurl + data.number,
                                 type: "get",
@@ -1953,7 +1964,7 @@ var xmlhttp = new XMLHttpRequest();
 
                     (function(marker, data) {
                         google.maps.event.addListener(marker, "click", function(event) {
-                            var basicurl = "http://127.0.0.1:5000/available/";
+                            var basicurl = available_Url;
                             $.ajax({
                                 url: basicurl + data.number,
                                 type: "get",

@@ -41,8 +41,13 @@
 
 
         function myObject() {
+            var getUrl = window.location;
+            var weather_Url = getUrl .protocol + "//" + getUrl.host + "/" + "available/33";
+            var stations_Url = getUrl .protocol + "//" + getUrl.host + "/" + "stations";
+            var available_Url = getUrl .protocol + "//" + getUrl.host + "/"+"available/";
+
             $.ajax({
-                url: "http://127.0.0.1:5000/available/33",
+                url: weather_Url,
                 type: "get",
                 dataType: "json",
                 success: function(content) {
@@ -109,10 +114,10 @@
 
 
 
-
+            
 
             $.ajax({
-                url: "http://127.0.0.1:5000/stations",
+                url: stations_Url,
                 type: "get",
                 dataType: "json",
                 success: function(content) {
@@ -312,7 +317,7 @@
 
                         (function(marker, data) {
                             google.maps.event.addListener(marker, "click", function(e) {
-                                var basicurl = "http://127.0.0.1:5000/available/";
+                                var basicurl = available_Url;
                                 $.ajax({
                                     url: basicurl + data.number,
                                     type: "get",
@@ -349,7 +354,6 @@
                                         } else if (getweek() == "Sunday") {
                                             k = 7;
                                         }
-
 
 
                                         infoWindow.setContent("<div style = 'width: 200px; min-height: 40px; font-style: italic; font-weight: 800'>" + "Last Updated Time: " + "<br>" + bikes.time + "<br><br>" + "Station Number: " + data.number + "<br>" + "Full Address: " + data.address + "<br>" + "Position: " + data.position_lat + ", " + data.position_lng + "<br>" + "Contract Name: " + data.contract_name + "<br><br>" + "Available Bikes: " + bikes.available_bikes + "<br>" + "Bike Stands: " + bikes.bike_stands + "<br>" + "Available Bikes Stands: " + bikes.available_bike_stands + "<br>" + "Bonus: " + data.bonus + "<br>" + "Status: " + bikes.status + "</div>");

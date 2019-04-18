@@ -1,4 +1,64 @@
- function getweek() {
+
+            var getUrl = window.location;
+
+            var stations_Url = getUrl .protocol + "//" + getUrl.host + "/" + "stations";
+
+
+
+var xmlhttp = new XMLHttpRequest();
+        var link = stations_Url;
+
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                var parsedObj = JSON.parse(xmlhttp.responseText);
+                getStationList(parsedObj);
+                addressnumber(parsedObj);
+            }
+        };
+
+        xmlhttp.open("GET", link, true);
+        xmlhttp.send();
+
+
+
+
+        function getStationList() {
+            var stationgroup = new Array();
+            var everystation = JSON.parse(xmlhttp.responseText).stations;
+            var bikestation = document.getElementById("stationlist");
+            for (let j = 0; j <= everystation.length; j++) {
+                var stationaddress = everystation[j].address;
+                if (stationgroup.indexOf(stationaddress) == -1) {
+                    bikestation.innerHTML += "<option>" + stationaddress + "</option>";
+                    stationgroup.push(stationaddress);
+                }
+
+
+
+            }
+
+        } 
+        
+        
+        
+        
+        
+        
+        
+        function addressnumber() {
+            var dic = new Array();
+            var dicdata = JSON.parse(xmlhttp.responseText).stations;
+            for (let i = 0; i < dicdata.length; i++) {
+            dic[" " + dicdata[i].address + " "] = dicdata[i].number;
+                    }
+        }
+        
+        
+        
+        
+
+    
+     function getweek() {
             var str = "";
             var week = new Date().getDay();
             if (week == 0) {
@@ -19,44 +79,151 @@
             }
             return str;
         }
-
-
-function onedaylater() {
-    var str = ""
-    var week = new Date().getDay();
-                if (week == 0) {
-                str = "Monday";
+        
+        function daylater() {
+            var weeknumber;
+            var week = new Date().getDay();
+            
+            if (document.getElementById("futurelist").value == "One Day Later") {
+                               if (week == 0) {
+                weeknumber = 1;
             } else if (week == 1) {
-                str = "Tuesday";
+                weeknumber = 2;
             } else if (week == 2) {
-                str = "Wednesday";
+                weeknumber = 3;
             } else if (week == 3) {
-                str = "Thursday";
+                weeknumber = 4;
             } else if (week == 4) {
-                str = "Friday";
+                weeknumber = 5;
             } else if (week == 5) {
-                str = "Saturday";
+                weeknumber = 6;
             } else if (week == 6) {
-                str = "Sunday";
+                weeknumber = 0;
 
-            }
-            return str;
         }
-    
-}
 
+            
+        }
+            
+         else if (document.getElementById("futurelist").value == "Two Days Later") {
+            if (week == 0) {
+                weeknumber = 2;
+            } else if (week == 1) {
+                weeknumber = 3;
+            } else if (week == 2) {
+                weeknumber = 4;
+            } else if (week == 3) {
+                weeknumber = 5;
+            } else if (week == 4) {
+                weeknumber = 6;
+            } else if (week == 5) {
+                weeknumber = 0;
+            } else if (week == 6) {
+                weeknumber = 1;
 
+        }
 
+            
+        }
+            
+         else if (document.getElementById("futurelist").value == "Three Days Later") {
+            if (week == 0) {
+                weeknumber = 3;
+            } else if (week == 1) {
+                weeknumber = 4;
+            } else if (week == 2) {
+                weeknumber = 5;
+            } else if (week == 3) {
+                weeknumber = 6;
+            } else if (week == 4) {
+                weeknumber = 0;
+            } else if (week == 5) {
+                weeknumber = 1;
+            } else if (week == 6) {
+                weeknumber = 2;
 
+        }
 
+            
+        }
+            
+         else if (document.getElementById("futurelist").value == "Four Days Later") {
+            if (week == 0) {
+                weeknumber = 4;
+            } else if (week == 1) {
+                weeknumber = 5;
+            } else if (week == 2) {
+                weeknumber = 6;
+            } else if (week == 3) {
+                weeknumber = 0;
+            } else if (week == 4) {
+                weeknumber = 1;
+            } else if (week == 5) {
+                weeknumber = 2;
+            } else if (week == 6) {
+                weeknumber = 3;
 
+        }
 
+            
+        }
+            
+            
+         else if (document.getElementById("futurelist").value == "Five Days Later") {
+            if (week == 0) {
+                weeknumber = 5;
+            } else if (week == 1) {
+                weeknumber = 6;
+            } else if (week == 2) {
+                weeknumber = 0;
+            } else if (week == 3) {
+                weeknumber = 1;
+            } else if (week == 4) {
+                weeknumber = 2;
+            } else if (week == 5) {
+                weeknumber = 3;
+            } else if (week == 6) {
+                weeknumber = 4;
 
+        }
 
+            
+        }
+            
+            
+         else if (document.getElementById("futurelist").value == "Six Days Later") {
+            if (week == 0) {
+                weeknumber = 6;
+            } else if (week == 1) {
+                weeknumber = 0;
+            } else if (week == 2) {
+                weeknumber = 1;
+            } else if (week == 3) {
+                weeknumber = 2;
+            } else if (week == 4) {
+                weeknumber = 3;
+            } else if (week == 5) {
+                weeknumber = 4;
+            } else if (week == 6) {
+                weeknumber = 5;
 
+        }
 
-
-
+            
+        }
+            
+            
+    else if (document.getElementById("futurelist").value == "Six Days Later") {
+           weeknumber = week;
+        }
+        return weeknumber;    
+            
+  
+        }
+        
+        
+        
+        
 
 
 
@@ -81,83 +248,24 @@ function onedaylater() {
 
 
         function myObject() {
+            
+            var getUrl = window.location;
+
+            var stations_Url = getUrl .protocol + "//" + getUrl.host + "/" + "stations";
+            var available_Url = getUrl .protocol + "//" + getUrl.host + "/"+"available/";
+
+            
+                                    
+            
+            
+            
+            
+            
+            
+            
+            
             $.ajax({
-                url: "http://127.0.0.1:5000/available/33",
-                type: "get",
-                dataType: "json",
-                success: function(content) {
-                    var dublin = content.station_recent;
-                    var temperature = document.getElementById("temperature");
-                    var description = document.getElementById("description");
-                    var humidity = document.getElementById("humidity");
-                    var wind_speed = document.getElementById("wind_speed");
-                    var future_temperature = document.getElementById("future_temperature");
-                    var future_description = document.getElementById("future_description");
-                    var station_location = document.getElementById("station_location");
-                    var temperature_icon = document.getElementById("temperature_icon");
-                    var future_temperature_icon = document.getElementById("future_temperature_icon");
-
-
-
-                    temperature.innerHTML = "<span>" + dublin.temperature + '&#176;C' + "</span>";
-                    description.innerHTML = "<span>" + dublin.weather + "</span>";
-                    humidity.innerHTML = "<span>Humidity: " + dublin.humidity + "</span>";
-                    wind_speed.innerHTML = "<span>Wind Speed: " + dublin.wind_speed + "m/s</span>";
-                    future_temperature.innerHTML = "<span>" + dublin.future_temperature + "&#176;C</span>";
-                    future_description.innerHTML = "<span>" + dublin.future_weather + "</span>";
-
-
-                    if (dublin.icon == "01d" || dublin.icon == "01n") {
-                        document.getElementById('temperature_icon').src = '../static/images/sunny.gif';
-                    } else if (dublin.icon == "02d" || dublin.icon == "02n") {
-                        document.getElementById('temperature_icon').src = '../static/images/suncloudy.gif';
-                    } else if (dublin.icon == "03d" || dublin.icon == "03n" || dublin.icon == "04d" || dublin.icon == "04n" || dublin.icon == "50d" || dublin.icon == "50n") {
-                        document.getElementById('temperature_icon').src = '../static/images/cloudy.gif';
-                    } else if (dublin.icon == "09d" || dublin.icon == "09n") {
-                        document.getElementById('temperature_icon').src = '../static/images/rainy.gif';
-                    } else if (dublin.icon == "10d" || dublin.icon == "10n") {
-                        document.getElementById('temperature_icon').src = '../static/images/mixed.gif';
-                    } else if (dublin.icon == "11d" || dublin.icon == "11n") {
-                        document.getElementById('temperature_icon').src = '../static/images/lightning.gif';
-                    } else if (dublin.icon == "13d" || dublin.icon == "13n") {
-                        document.getElementById('temperature_icon').src = '../static/images/snowy.gif';
-                    }
-
-
-                    if (dublin.future_icon == "01d" || dublin.future_icon == "01n") {
-                        document.getElementById('future_temperature_icon').src = '../static/images/sunny.gif';
-                    } else if (dublin.future_icon == "02d" || dublin.future_icon == "02n") {
-                        document.getElementById('future_temperature_icon').src = '../static/images/suncloudy.gif';
-                    } else if (dublin.future_icon == "03d" || dublin.future_icon == "03n" || dublin.future_icon == "04d" || dublin.future_icon == "04n" || dublin.future_icon == "50d" || dublin.future_icon == "50n") {
-                        document.getElementById('future_temperature_icon').src = '../static/images/cloudy.gif';
-                    } else if (dublin.future_icon == "09d" || dublin.future_icon == "09n") {
-                        document.getElementById('future_temperature_icon').src = '../static/images/rainy.gif';
-                    } else if (dublin.future_icon == "10d" || dublin.future_icon == "10n") {
-                        document.getElementById('future_temperature_icon').src = '../static/images/mixed.gif';
-                    } else if (dublin.future_icon == "11d" || dublin.future_icon == "11n") {
-                        document.getElementById('future_temperature_icon').src = '../static/images/lightning.gif';
-                    } else if (dublin.future_icon == "13d" || dublin.future_icon == "13n") {
-                        document.getElementById('future_temperature_icon').src = '../static/images/snowy.gif';
-                    }
-
-                },
-                error: function() {
-                   alert(An error occurs!);    //http响应状态
-
-                   }
-
-            });
-
-
-
-
-
-
-
-
-
-            $.ajax({
-                url: "http://127.0.0.1:5000/stations",
+                url: stations_Url,
                 type: "get",
                 dataType: "json",
                 success: function(content) {
@@ -170,6 +278,19 @@ function onedaylater() {
                     var infoWindow = new google.maps.InfoWindow();
                     var latlngbounds = new google.maps.LatLngBounds();
                     var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+                    
+//                                                    $.ajax({
+//                                    url: "http://127.0.0.1:5000/pridict",
+//                                    type: "get",
+//                                    dataType: "json",
+//                                    success: function(content) {var predict_data = content.prediction_data;
+                                                               
+
+                    
+                    
+                    
+                    
+                    
 
                     var chart = new CanvasJS.Chart("weekly", {
                         animationEnabled: false,
@@ -222,7 +343,7 @@ function onedaylater() {
                         animationEnabled: false,
                         theme: "dark2",
                         title: {
-                            text: "History Hourly Data on " + onedaylater()
+                            text: "History Hourly Data on " + document.getElementById("futurelist").value
                         },
                         data: [{
                             type: "column",
@@ -326,6 +447,8 @@ function onedaylater() {
                         }]
                     });
                     columnchart.render();
+//                                                                }
+//                                                               });
 
                     for (var i = 0; i < markers.length; i++) {
 
@@ -357,7 +480,7 @@ function onedaylater() {
 
                         (function(marker, data) {
                             google.maps.event.addListener(marker, "click", function(e) {
-                                var basicurl = "http://127.0.0.1:5000/available/";
+                                var basicurl = available_Url;
                                 $.ajax({
                                     url: basicurl + data.number,
                                     type: "get",
@@ -368,15 +491,7 @@ function onedaylater() {
                                         var li_bike_stands_weekly = content.li_bike_stands_weekly;
                                         var li_bike_hourly = content.li_bike_hourly;
                                         var li_bike_stands_hourly = content.li_bike_stands_hourly;
-                                        var temperature = document.getElementById("temperature");
-                                        var description = document.getElementById("description");
-                                        var humidity = document.getElementById("humidity");
-                                        var wind_speed = document.getElementById("wind_speed");
-                                        var future_temperature = document.getElementById("future_temperature");
-                                        var future_description = document.getElementById("future_description");
-                                        var station_location = document.getElementById("station_location");
-                                        var temperature_icon = document.getElementById("teperature_icon");
-                                        var future_temperature_icon = document.getElementById("future_teperature_icon");
+
 
                                         var k;
                                         if (getweek() == "Monday") {
@@ -401,55 +516,7 @@ function onedaylater() {
                                         infoWindow.open(map, marker);
 
 
-                                        temperature.innerHTML = "<span>" + bikes.temperature + '&#176;C' + "</span>";
-                                        description.innerHTML = "<span>" + bikes.weather + "</span>";
-                                        humidity.innerHTML = "<span>Humidity: " + bikes.humidity + "</span>";
-                                        wind_speed.innerHTML = "<span>Wind Speed: " + bikes.wind_speed + "m/s</span>";
-                                        station_location.innerHTML = "<span>" + data.address + "</span>";
-                                        future_temperature.innerHTML = "<span>" + bikes.future_temperature + "&#176;C</span>";
-                                        future_description.innerHTML = "<span>" + bikes.future_weather + "</span>";
-
-
-                                        if (bikes.icon == "01d" || bikes.icon == "01n") {
-                                            document.getElementById('temperature_icon').src = '../static/images/sunny.gif';
-                                        } else if (bikes.icon == "02d" || bikes.icon == "02n") {
-                                            document.getElementById('temperature_icon').src = '../static/images/suncloudy.gif';
-                                        } else if (bikes.icon == "03d" || bikes.icon == "03n" || bikes.icon == "04d" || bikes.icon == "04n" || bikes.icon == "50d" || bikes.icon == "50n") {
-                                            document.getElementById('temperature_icon').src = '../static/images/cloudy.gif';
-                                        } else if (bikes.icon == "09d" || bikes.icon == "09n") {
-                                            document.getElementById('temperature_icon').src = '../static/images/rainy.gif';
-                                        } else if (bikes.icon == "10d" || bikes.icon == "10n") {
-                                            document.getElementById('temperature_icon').src = '../static/images/mixed.gif';
-                                        } else if (bikes.icon == "11d" || bikes.icon == "11n") {
-                                            document.getElementById('temperature_icon').src = '../static/images/lightning.gif';
-                                        } else if (bikes.icon == "13d" || bikes.icon == "13n") {
-                                            document.getElementById('temperature_icon').src = '../static/images/snowy.gif';
-                                        }
-
-
-                                        if (bikes.future_icon == "01d" || bikes.future_icon == "01n") {
-                                            document.getElementById('future_temperature_icon').src = '../static/images/sunny.gif';
-                                        } else if (bikes.future_icon == "02d" || bikes.future_icon == "02n") {
-                                            document.getElementById('future_temperature_icon').src = '../static/images/suncloudy.gif';
-                                        } else if (bikes.future_icon == "03d" || bikes.future_icon == "03n" || bikes.future_icon == "04d" || bikes.future_icon == "04n" || bikes.future_icon == "50d" || bikes.future_icon == "50n") {
-                                            document.getElementById('future_temperature_icon').src = '../static/images/cloudy.gif';
-                                        } else if (bikes.future_icon == "09d" || bikes.future_icon == "09n") {
-                                            document.getElementById('future_temperature_icon').src = '../static/images/rainy.gif';
-                                        } else if (bikes.future_icon == "10d" || bikes.future_icon == "10n") {
-                                            document.getElementById('future_temperature_icon').src = '../static/images/mixed.gif';
-                                        } else if (bikes.future_icon == "11d" || bikes.future_icon == "11n") {
-                                            document.getElementById('future_temperature_icon').src = '../static/images/lightning.gif';
-                                        } else if (bikes.future_icon == "13d" || bikes.future_icon == "13n") {
-                                            document.getElementById('future_temperature_icon').src = '../static/images/snowy.gif';
-                                        }
-
-
-
-
-
-
-
-
+            
 
                                         var chart = new CanvasJS.Chart("weekly", {
                                             animationEnabled: true,
@@ -821,10 +888,7 @@ function onedaylater() {
                     var bounds = new google.maps.LatLngBounds();
                     map.setCenter(latlngbounds.getCenter());
                     map.fitBounds(latlngbounds);
-                },
-                error: function() {
-                   alert(An error occurs!);    //http响应状态
-                   }
+                }
             });
         }
 
@@ -837,3 +901,5 @@ function onedaylater() {
 
 
         myObject();
+    
+    
