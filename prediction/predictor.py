@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from sklearn.tree import DecisionTreeRegressor
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.feature_extraction import DictVectorizer
 import joblib
 
@@ -11,9 +11,9 @@ def predict_(df):
     df = df[df['weather'].isin(['broken clouds', 'clear sky', 'drizzle', 'few clouds', 'fog','heavy intensity rain', 'light intensity drizzle','light intensity drizzle rain', 'light intensity shower rain','light rain', 'mist', 'moderate rain', 'overcast clouds','scattered clouds', 'shower rain'])]
     df = df.set_index('time',drop = False).groupby('number').resample('H').first().ffill().reset_index(drop=True).set_index('time',drop = True)
     df[['weather','hour','weekday','number']]=df[['weather','hour','weekday','number']].astype('category')
-    df = df.reset_index(drop=True)
     y = df['available_bike_stands']
     X = df[['number','weather','hour','temperature','weekday']]
+    X['temperature'] = X['temperature'].astype('float64')
     predict_model(X,y)    
 
 
@@ -21,7 +21,7 @@ def predict_model(features,target):
     dicv = DictVectorizer(sparse = False)
     X = dicv.fit_transform(features.to_dict(orient="records"))
     y = target
-    dtr = DecisionTreeRegressor(max_depth = 15)
+    dtr = DecisionTreeClassifier(max_depth = 15)
     dtr.fit(X,y)
     joblib.dump(dtr,'dbbikes_model.pkl')
 

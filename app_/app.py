@@ -1,7 +1,7 @@
+
 from flask import Flask, render_template, jsonify ,request    
 from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
-# from sklearn.linear_model import LinearRegression
 from sqlalchemy import func,extract
 from _operator import not_
 import datetime
@@ -9,11 +9,12 @@ import datetime
 import time
 import os
 import datetime
-from sklearn.tree import DecisionTreeRegressor
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.feature_extraction import DictVectorizer
-from translate_time import TimeStampToTime,get_FileModifyTime
-from predictor import predict_,predict_model,create_predict_set
+from app_.translate_time import TimeStampToTime,get_FileModifyTime
+from prediction.predictor import predict_,predict_model,create_predict_set
 import joblib
+from flask.helpers import url_for
 
 class Config(object):
     """setting the configuration"""
@@ -76,9 +77,6 @@ class Station(db.Model):
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 
-#weather class,for future
-# class Weather(db.Model):
-    
 
 # this route simply serves the map page
 @app.route('/')
@@ -157,13 +155,9 @@ def get_weather(station_id):
 
 @app.route("/predict")
 def predict():
-#     station_id = request.form.get('station')
-#     date = request.form.get('date')
-#     weekday = datetime.datetime.strptime(date,'%Y-%m-%d').weekday()
-# aquire the 'dbbikes_model.pkl' last modified time and the current time,if they are the same day, system will not train the data again 
+    
     file_modify_time =  get_FileModifyTime('dbbikes_model.pkl')
     now = TimeStampToTime(time.time())
-    
     
     if now == file_modify_time:
         model = joblib.load("dbbikes_model.pkl")
@@ -172,8 +166,7 @@ def predict():
         df = pd.DataFrame(rows,columns = ['number','available_bikes','available_bike_stands','weather','temperature','time'])
         predict_(df)
         model = joblib.load("dbbikes_model.pkl")
-    
-#     df = create_predict_set(station_id, date)
+        
     stations = StationFix.query.all()
     station_li = {}
     for station in stations:
@@ -184,11 +177,45 @@ def predict():
             station_li[station] = station_li[station]-2
         else:
             station_li[station] = station_li[station]-3
+            
+            
     df = create_predict_set()
     prediction_data = list(model.predict(df))
-    prediction_data_final = [[[prediction_data[k] for k in range(i*113*24+j*24,i*113*24+j*24+24)] for j in range(113)] for i in range(7)]
+    prediction_data_final = [[[prediction_data[k]*1.0 for k in range(i*113*24+j*24,i*113*24+j*24+24)] for j in range(113)] for i in range(7)]
     return jsonify(prediction_data = prediction_data_final,stations_li = station_li)
-    
+
+# @app.route("/predicta")
+# def predicta():
+#     rows = db.session.query(Station.number,Station.available_bikes,Station.available_bike_stands,Station.weather,Station.temperature,Station.time).filter(Station.weather.isnot(None)).order_by(Station.time.desc()).all()
+#     df = pd.DataFrame(rows,columns = ['number','available_bikes','available_bike_stands','weather','temperature','time'])
+#     predict_(df)
+#     model = joblib.load("dbbikes_model.pkl")
+# 
+#     df = create_predict_set()
+#     prediction_data = list(model.predict(df))
+#     print(prediction_data)
+#     prediction_data_final = [[[prediction_data[k]*1.0 for k in range(i*113*24+j*24,i*113*24+j*24+24)] for j in range(113)] for i in range(7)]
+#     print(prediction_data_final)
+#     return jsonify(prediction_data = prediction_data_final )
+
+# def main():
+#     while True:
+#         try:
+#             file_modify_time =  get_FileModifyTime('dbbikes_model.pkl')
+#             now = TimeStampToTime(time.time())
+#             print(1)
+#             
+#             if now != file_modify_time:
+#                 rows = db.session.query(Station.number,Station.available_bikes,Station.available_bike_stands,Station.weather,Station.temperature,Station.time).filter(Station.weather.isnot(None)).order_by(Station.time.desc()).all()
+#                 df = pd.DataFrame(rows,columns = ['number','available_bikes','available_bike_stands','weather','temperature','time'])
+#                 predict_(df)
+#             time.sleep(10)
+#         except Exception as e :
+#             print(e)
+#             return
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True,host='0.0.0.0',port=5000)
+#     main()
+
+
