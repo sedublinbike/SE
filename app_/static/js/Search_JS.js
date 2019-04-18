@@ -1,5 +1,12 @@
 var xmlhttp = new XMLHttpRequest();
-        var link = "http://127.0.0.1:5000/stations";
+
+            var getUrl = window.location;
+
+            var stations_Url = getUrl .protocol + "//" + getUrl.host + "/" + "stations";
+
+
+
+        var link = stations_Url;
 
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
