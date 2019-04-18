@@ -114,18 +114,18 @@ html, body {height: 100%; padding: 0; margin: 0; border: 0; overflow-y: hidden;}
 
 
     </div>
-    <nav> <a href="" id="menuToggle" title="show menu"> <span class="navClosed"><i>show menu</i></span> </a> <a href="/all_stations" title="Item 1">Overall</a> <a href="prediction" title="Item 2">Prediction</a> <a href="route" title="Item 3">Route</a> <a href="/" title="Item 3">Home Page</a> </nav>
+    <nav> <a href="" id="menuToggle" title="show menu"> <span class="navClosed"><i>show menu</i></span> </a><a href="/all_stations" title="Overall">Overall</a><a title="Search" style="color: hotpink">Search</a> <a href="prediction" title="Prediction">Prediction</a> <a href="route" title="Route">Route</a> <a href="/" title="Home Page">Home Page</a> </nav>
 
 
 
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB13DSvYSxFIptwyDuFm4oqFuAeMJiLDmg&amp;callback=initMap">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFj_OVOzGe5xHdcq4CqpikFfrnk7AP1p8&amp;callback=initMap">
     </script>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script type="text/javascript" src="https://pagead2.googlesyndication.com/pagead/show_ads.js">
     </script>
-    <script type="text/javascript" src="../static/js/Search_JS.js"></script>
+    <script type="text/javascript" src="{{url_for('static',filename='js/Search_JS.js')}}"></script>
 
 
 
