@@ -165,6 +165,7 @@ def predict():
     file_modify_time =  get_FileModifyTime('dbbikes_model.pkl')
     now = TimeStampToTime(time.time())
     
+    
     if now == file_modify_time:
         model = joblib.load("dbbikes_model.pkl")
     else:
@@ -174,10 +175,15 @@ def predict():
         model = joblib.load("dbbikes_model.pkl")
     
 #     df = create_predict_set(station_id, date)
+    stations = StationFix.query.all()
+    station_li = []
+    for station in stations:
+        station = station.to_dict()
+        station_li.append(station)
     df = create_predict_set()
     prediction_data = list(model.predict(df))
     prediction_data_final = [[[prediction_data[k] for k in range(i*113*24+j*24,i*113*24+j*24+24)] for j in range(113)] for i in range(7)]
-    return jsonify(prediction_data = prediction_data_final )
+    return jsonify(prediction_data = prediction_data_final,stations_li = station_li)
     
 
 if __name__ == '__main__':
