@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, jsonify ,request    
 from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
@@ -12,8 +11,8 @@ import os
 import datetime
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.feature_extraction import DictVectorizer
-from app_.translate_time import TimeStampToTime,get_FileModifyTime
-from prediction.predictor import predict_,predict_model,create_predict_set
+from translate_time import TimeStampToTime,get_FileModifyTime
+from predictor import predict_,predict_model,create_predict_set
 import joblib
 
 class Config(object):
@@ -176,10 +175,15 @@ def predict():
     
 #     df = create_predict_set(station_id, date)
     stations = StationFix.query.all()
-    station_li = []
+    station_li = {}
     for station in stations:
         station = station.to_dict()
-        station_li.append(station)
+        station_li[station['address']]=station['number']
+    for station in station_li.keys():
+        if station_li[station]<=19:
+            station_li[station] = station_li[station]-2
+        else:
+            station_li[station] = station_li[station]-3
     df = create_predict_set()
     prediction_data = list(model.predict(df))
     prediction_data_final = [[[prediction_data[k] for k in range(i*113*24+j*24,i*113*24+j*24+24)] for j in range(113)] for i in range(7)]
@@ -188,4 +192,3 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
