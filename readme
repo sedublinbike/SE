@@ -10,7 +10,7 @@ Dublin Bike is a public bicycle rental scheme which has operated in the city of 
 插图网页最终版本
 All of the code/graph/notes are available on GITHUB at: https://github.com/sedublinbike/SE
 And the working EC2 address of the live website is:
-https://github.com/sedublinbike/SE
+http://35.160.137.228:5000
 The contribution of our group team member is:
 Name	Contribution
 Menghao Su	34%
@@ -45,77 +45,4 @@ The Scraper on EC2 runing continuously gets data through JCDecaux API and put th
  
 
 
-2.	Team Organization
-2.1 Teamwork
-In this project team, there are three students cooperating together. At the beginning of the whole project, three of us were not quite familiar with each other. But we get a pretty high efficiency in discussion and teamwork through the project, and there are two main reasons for that:
 
-First reason is that we set up a really great communication style and method to solve disagreement. For instance, when we design the interface of the website, three of us had completely different opinions. Su preferred to use four different pages as map_all, search_station, predict_future and route_scheduling separately. While Anna would like to put all functions into one single page and allow users to drop down and see their search or click results. Fu preferred to use single page but show the availability and prediction results on a popup. We tried all the possible methods and finally decided to use Su’s suggestion, as we continually added in new features and this way can make each feature rather independent and cause less effect to the others features.
-
-The second reason is the way we divided our workload. We did not set a big part such as back-end/front-end to each specific member. The reason is that we feel it actually takes longer to solve the problem when one person met a particular technical difficulty, as others may not be able to know what’s going on or provide suggestion to solve the problem. We always had a discussion before going into every big part, for example the prediction. We devided the prediction into many sub tasks and then divide the sub tasks to each team member. Therefore we discussed the data structure of file together, and then Su cleaned the data, Anna and Fu trained four predict models and then Su and Fu deploy the model to the website. In this way, we can learn the needed knowledge together and help each other. Besides, knowing what and how the other’s part is look like help us to debug and communicate more efficiently.
-
-Besides, we divided the whole project period into four sprints and made sure that every team member had an opportunity to be the sprint master of at least one sprint. Therefore, every member could learn Scrum/Agile and know how to set up daily stand up meeting and organize team discussion.
-
-Sprint	Master	Main Achievements	Time expected	Actual time
-One	Anna Xuejiao Ge	1)	Set up the EC2 and RDS, 
-2)	Set up group Github account
-3)	Learn SCRUM and Agile
-4)	Design data structure and get data through API	1)	3h
-2)	0.5h
-3)	2h*34)	3h	
-Two	Anna Xuejiao Ge	1)	Learn Falsk basic knowledge
-2)	Achieve the back-end template using FLASK
-3)	Basic UI design
-4)	Connect Flask, RDS and HTML website	1)	6h*3
-2)	7h
-3)	5h4)	4h	
-Three	Menghao Su	1)	Achieve analysis based on hourly and daily chart
-2)	Add in weather API
-3)	Beauty UI	1)	7h
-2)	6h3)	5h	
-Four	Renjie Fu	1)	Clean data, 
-2)	Select, Train, test the model
-3)	Deploy the predict model with the website
-4)	Schedule the route
-5)	Beautify UI
-6)	Deploy the website on EC2	1)	1h
-2)	4h
-3)	3h
-4)	6h
-5)	4h6)	2h	
-
-We all feel grateful to be in such a fantastic team and work together. Everyone in our team shows a humble attitude and everyone learns quite a lot from each other. We agree on and obey the way to solve disagreement from the beginning to the end. When we have different ideas, always find a nice way to understand each other’s thinking without misunderstanding, and try multiple ways to achieve the goal. And then we would try to find the most efficient solution. And for the other options, we never regard them as a waste of time as they also provide a useful and valuable learning opportunity. 
-
-All of our team members are willing to share our own opinion and we all like to learn more and contribute more to our project. We all enjoy sharing the new ideas of what we just learned with other teammates and other students. And we believe this is just what a good team should be look like.
-
-At the end of this project, we reviewed what we have achieved. Beyond learning the technical skills such as cloud service, Flask(back-end), modeling, we realize that the best achievement of this project is learning and attempting to cooperate with others efficiently under advanced team cooperation methods: Agile and Scurm.
-
-Huge thanks our lecturer Lawlor Aonghus and tutor Karl Roe for their nice and patient guidance and help. Lawlor and Karl both helped us to understand the whole project goal and get a big picture from it. Karl assisted us to divide the project into four sprints and set goal for each one. Lawlor helped us to understand the necessary knowledge on scrum, flask, could service, and the structure, design pattern and real case, which are used in our project and point us to what we should continue learning in the future.
-
-2.2 Time Management
-In order to use four sprints efficient and achieve the goal on time, it is necessary for our team to hace a good management of time, which contains three basic areas:
-a)	the stand up meeting to let every team member know how is the project going on, 
-b)	the way to solve the clash on time with other modules, 
-c)	the way to predict workload and solve the problem of spending longer time than expected.
-
-a)	Stand up meeting
-As the school timetable scheduled, we have class from Monday to Friday, which means all of our team member could meet each other every workday. We have two labs (on Tuesday and Thursday) and two lectures (Monday and Thursday). Therefore we could solve some difficulties we met during the lab and communicate with our tutor Karl. For the first one and two sprint, we insisted on stand up meeting every day. For the third and fourth one, as we needed more time to work together and discuss on some technical issues such as transfer the data from prediction model into website, we agreed to add more hour-long team discussion in library study rooms. Besides, we kept a good record style and fully usage the tool such as Trello and Shimo, which is a cloud based text editior allow user to edit together and generate directory on the left side automatically.
-
- 
-
-Our daily meeting record on the Shimo editor is available at: https://shimo.im/docs/XEjbgB7qkwYufO6j 
-
- 
-
-
-
-b)	Multi-task handling
-Due to the fact of this project is not the only one we have during this semester, sometimes we found it was really difficult to keep on contribute new stuff to our project every day. For instance, we had four deadlines as well as two tests during week 6 and 7, and seven deadlines as well as one lab-test during week 10, 11 and 12. 
-
-It pushed us to learn how to handle multi-task and improve our skill on time management. The solution we got is making an early plan on the whole stuff of all the modules. As we could know the exam time and project deadline two to four weeks in advance, we took these date and event into account when making the sprint planning. We arranged some self study tasks such as basic understanding of Flask during sprint two before mid-term and we all agreed to work on our project during spring holiday together.
-
-c)	Prediction of workload
-Our team member all found it was pretty hard to predict time needed on something we never did before. And we always found some tasks took longer time than we assumed to be. Besides, it was hard to predict the time needed to debug when our application became more and more complex.
-
-For example, the dynamic weather icon is one of our best achievements in this project. In order to show weather condition dynamically, we used six existing weather icons to generate 8 different ones based on the real condition of Dublin weather that we got from the database. Then we used gif tool to unify the eight icon’s size. And we used the API called _____ to get weather information of each station, rather than the city, and show the weather condition both now and two hours later. At the beginning, we felt that weather was not a very big feature in our project. But later on we realized that it took much longer than we expected in creating gif files, selecting weather API. 
-
-Although we spent longer time in this feather, we felt it is worth to do and we achieved a better effect than using the simple weather plug-in. What’s more, we felt that we learnt quite a lot while design our own weather feature on the way of presenting the weather condition of each station on website, through JSON, connecting front-end and back-end, as well as transferring correct parameters in JavaScript functions.
