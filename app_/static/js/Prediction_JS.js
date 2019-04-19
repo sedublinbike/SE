@@ -181,7 +181,7 @@ function daylater() {
         }
 
 
-    } else if (document.getElementById("futurelist").value == "Six Days Later") {
+    } else if (document.getElementById("futurelist").value == "Seven Days Later") {
         weeknumber = week;
     }
     return weeknumber;
@@ -208,7 +208,7 @@ function daylater() {
         });
     });
 })(jQuery);
- // referranced from https://codepen.io/mambroz/pen/rdFfx, and changed some style and codes based on my case.
+// referranced from https://codepen.io/mambroz/pen/rdFfx, and changed some style and codes based on my case.
 
 
 
@@ -220,6 +220,7 @@ function myObject() {
     var stations_Url = getUrl.protocol + "//" + getUrl.host + "/" + "stations";
     var available_Url = getUrl.protocol + "//" + getUrl.host + "/" + "available/";
     var predict_Url = getUrl.protocol + "//" + getUrl.host + "/" + "predict";
+    
 
 
     $.ajax({
@@ -245,44 +246,113 @@ function myObject() {
                 dataType: "json",
                 success: function (content) {
                     var predict_data = content.prediction_data;
+                    var address_list = content.stations_li;
 
 
                     var chart = new CanvasJS.Chart("weekly", {
                         animationEnabled: false,
                         theme: "dark2",
                         title: {
-                            text: "History Daily Data"
+                            text: "Hourly Prediction: " + document.getElementById("futurelist").value
                         },
                         data: [{
                             type: "line",
                             dataPoints: [{
-                                    label: "Sunday",
+                                    label: "0:00 - 1:00",
                                     y: null
-                                },
+                                                        },
                                 {
-                                    label: "Monday",
+                                    label: "1:00 - 2:00",
                                     y: null
-                                },
+                                                        },
                                 {
-                                    label: "Tuesday",
+                                    label: "2:00 - 3:00",
                                     y: null
-                                },
+                                                        },
                                 {
-                                    label: "Wednesday",
+                                    label: "3:00 - 4:00",
                                     y: null
-                                },
+                                                        },
                                 {
-                                    label: "Thursday",
+                                    label: "4:00 - 5:00",
                                     y: null
-                                },
+                                                        },
                                 {
-                                    label: "Friday",
+                                    label: "5:00 - 6:00",
                                     y: null
-                                },
+                                                        },
                                 {
-                                    label: "Saturday",
+                                    label: "6:00 - 7:00",
                                     y: null
-                                }
+                                                        },
+                                {
+                                    label: "7:00 - 8:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "8:00 - 9:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "9:00 - 10:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "10:00 - 11:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "11:00 - 12:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "12:00 - 13:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "13:00 - 44:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "14:00 - 15:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "15:00 - 16:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "16:00 - 17:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "17:00 - 18:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "18:00 - 19:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "19:00 - 20:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "20:00 - 21:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "21:00 - 22:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "22:00 - 23:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "23:00 - 0:00",
+                                    y: null
+                                                        }
 
                             ]
                         }]
@@ -291,117 +361,6 @@ function myObject() {
 
 
 
-
-
-
-                    var columnchart = new CanvasJS.Chart("hourly", {
-                        animationEnabled: false,
-                        theme: "dark2",
-                        title: {
-                            text: "History Hourly Data on " + document.getElementById("futurelist").value
-                        },
-                        data: [{
-                            type: "column",
-                            dataPoints: [{
-                                    label: "0:00 - 1:00",
-                                    y: predict_data[daylater()][station_li[" " + data.address + " "]][0]
-                                },
-                                {
-                                    label: "1:00 - 2:00",
-                                    y: null
-                                },
-                                {
-                                    label: "2:00 - 3:00",
-                                    y: null
-                                },
-                                {
-                                    label: "3:00 - 4:00",
-                                    y: null
-                                },
-                                {
-                                    label: "4:00 - 5:00",
-                                    y: null
-                                },
-                                {
-                                    label: "5:00 - 6:00",
-                                    y: null
-                                },
-                                {
-                                    label: "6:00 - 7:00",
-                                    y: null
-                                },
-                                {
-                                    label: "7:00 - 8:00",
-                                    y: null
-                                },
-                                {
-                                    label: "8:00 - 9:00",
-                                    y: null
-                                },
-                                {
-                                    label: "9:00 - 10:00",
-                                    y: null
-                                },
-                                {
-                                    label: "10:00 - 11:00",
-                                    y: null
-                                },
-                                {
-                                    label: "11:00 - 12:00",
-                                    y: null
-                                },
-                                {
-                                    label: "12:00 - 13:00",
-                                    y: null
-                                },
-                                {
-                                    label: "13:00 - 44:00",
-                                    y: null
-                                },
-                                {
-                                    label: "14:00 - 15:00",
-                                    y: null
-                                },
-                                {
-                                    label: "15:00 - 16:00",
-                                    y: null
-                                },
-                                {
-                                    label: "16:00 - 17:00",
-                                    y: null
-                                },
-                                {
-                                    label: "17:00 - 18:00",
-                                    y: null
-                                },
-                                {
-                                    label: "18:00 - 19:00",
-                                    y: null
-                                },
-                                {
-                                    label: "19:00 - 20:00",
-                                    y: null
-                                },
-                                {
-                                    label: "20:00 - 21:00",
-                                    y: null
-                                },
-                                {
-                                    label: "21:00 - 22:00",
-                                    y: null
-                                },
-                                {
-                                    label: "22:00 - 23:00",
-                                    y: null
-                                },
-                                {
-                                    label: "23:00 - 0:00",
-                                    y: null
-                                }
-                            ]
-                        }]
-                    });
-                    columnchart.render();
 
 
                     for (var i = 0; i < markers.length; i++) {
@@ -417,7 +376,7 @@ function myObject() {
                                 icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
 
                             });
-                        } else if (data.available_bikes >= data.available_bike_stands) {
+                        } else if (data.available_bikes > 5) {
                             var marker = new google.maps.Marker({
                                 position: myLatlng,
                                 map: map,
@@ -447,27 +406,10 @@ function myObject() {
                                         var li_bike_stands_hourly = content.li_bike_stands_hourly;
 
 
-                                        var k;
-                                        if (getweek() == "Monday") {
-                                            k = 1;
-                                        } else if (getweek() == "Tuesday") {
-                                            k = 2;
-                                        } else if (getweek() == "Wednesday") {
-                                            k = 3
-                                        } else if (getweek() == "Thursday") {
-                                            k = 4;
-                                        } else if (getweek() == "Friday") {
-                                            k = 5;
-                                        } else if (getweek() == "Saturday") {
-                                            k = 6;
-                                        } else if (getweek() == "Sunday") {
-                                            k = 7;
-                                        }
-
-
 
                                         infoWindow.setContent("<div style = 'width: 200px; min-height: 40px; font-style: italic; font-weight: 800'>" + "Last Updated Time: " + "<br>" + bikes.time + "<br><br>" + "Station Number: " + data.number + "<br>" + "Full Address: " + data.address + "<br>" + "Position: " + data.position_lat + ", " + data.position_lng + "<br>" + "Contract Name: " + data.contract_name + "<br><br>" + "Available Bikes: " + bikes.available_bikes + "<br>" + "Bike Stands: " + bikes.bike_stands + "<br>" + "Available Bikes Stands: " + bikes.available_bike_stands + "<br>" + "Bonus: " + data.bonus + "<br>" + "Status: " + bikes.status + "</div>");
                                         infoWindow.open(map, marker);
+
 
 
 
@@ -476,85 +418,120 @@ function myObject() {
                                             animationEnabled: true,
                                             theme: "dark2",
                                             title: {
-                                                text: "History Daily Data"
+                                                text: "Hourly Prediction: " + document.getElementById("futurelist").value
                                             },
                                             axisY: {
-                                                includeZero: true
+                                                includeZero: true,
+                                                minimum: 0
                                             },
                                             legend: {
                                                 cursor: "pointer",
                                                 dockInsidePlotArea: true,
                                                 itemclick: toggleDataSeries
                                             },
-                                            data: [{
-                                                    type: "line",
-                                                    showInLegend: true,
-                                                    name: "Available Bikes",
-                                                    color: "#04B486",
-                                                    dataPoints: [{
-                                                            label: "Sunday",
-                                                            y: li_bike_weekly[6]
-                                                        },
-                                                        {
-                                                            label: "Monday",
-                                                            y: li_bike_weekly[0]
-                                                        },
-                                                        {
-                                                            label: "Tuesday",
-                                                            y: li_bike_weekly[1]
-                                                        },
-                                                        {
-                                                            label: "Wednesday",
-                                                            y: li_bike_weekly[2]
-                                                        },
-                                                        {
-                                                            label: "Thursday",
-                                                            y: li_bike_weekly[3]
-                                                        },
-                                                        {
-                                                            label: "Friday",
-                                                            y: li_bike_weekly[4]
-                                                        },
-                                                        {
-                                                            label: "Saturday",
-                                                            y: li_bike_weekly[5]
-                                                        },
-
-                                                    ]
-                                                },
+                                            data: [
                                                 {
                                                     type: "line",
                                                     showInLegend: true,
                                                     name: "Available Stands",
                                                     color: "#CE0000",
-                                                    dataPoints: [{
-                                                            label: "Sunday",
-                                                            y: li_bike_stands_weekly[6]
+                                                    dataPoints: [
+                                                        {
+                                                            label: "0:00 - 1:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][0]
                                                         },
                                                         {
-                                                            label: "Monday",
-                                                            y: li_bike_stands_weekly[0]
+                                                            label: "1:00 - 2:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][1]
                                                         },
                                                         {
-                                                            label: "Tuesday",
-                                                            y: li_bike_stands_weekly[1]
+                                                            label: "2:00 - 3:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][2]
                                                         },
                                                         {
-                                                            label: "Wednesday",
-                                                            y: li_bike_stands_weekly[2]
+                                                            label: "3:00 - 4:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][3]
                                                         },
                                                         {
-                                                            label: "Thursday",
-                                                            y: li_bike_stands_weekly[3]
+                                                            label: "4:00 - 5:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][4]
                                                         },
                                                         {
-                                                            label: "Friday",
-                                                            y: li_bike_stands_weekly[4]
+                                                            label: "5:00 - 6:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][5]
                                                         },
                                                         {
-                                                            label: "Saturday",
-                                                            y: li_bike_stands_weekly[5]
+                                                            label: "6:00 - 7:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][6]
                                                         },
+                                                        {
+                                                            label: "7:00 - 8:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][7]
+                                                        },
+                                                        {
+                                                            label: "8:00 - 9:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][8]
+                                                        },
+                                                        {
+                                                            label: "9:00 - 10:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][9]
+                                                        },
+                                                        {
+                                                            label: "10:00 - 11:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][10]
+                                                        },
+                                                        {
+                                                            label: "11:00 - 12:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][11]
+                                                        },
+                                                        {
+                                                            label: "12:00 - 13:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][12]
+                                                        },
+                                                        {
+                                                            label: "13:00 - 44:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][13]
+                                                        },
+                                                        {
+                                                            label: "14:00 - 15:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][14]
+                                                        },
+                                                        {
+                                                            label: "15:00 - 16:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][15]
+                                                        },
+                                                        {
+                                                            label: "16:00 - 17:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][16]
+                                                        },
+                                                        {
+                                                            label: "17:00 - 18:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][17]
+                                                        },
+                                                        {
+                                                            label: "18:00 - 19:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][18]
+                                                        },
+                                                        {
+                                                            label: "19:00 - 20:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][19]
+                                                        },
+                                                        {
+                                                            label: "20:00 - 21:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][20]
+                                                        },
+                                                        {
+                                                            label: "21:00 - 22:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][21]
+                                                        },
+                                                        {
+                                                            label: "22:00 - 23:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][22]
+                                                        },
+                                                        {
+                                                            label: "23:00 - 0:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][23]
+                                                        }
 
                                                     ]
                                                 }
@@ -571,265 +548,6 @@ function myObject() {
                                             }
                                             chart.render();
                                         }
-
-
-                                        var columnchart = new CanvasJS.Chart("hourly", {
-                                            animationEnabled: true,
-                                            theme: "dark2",
-                                            title: {
-                                                text: "History Hourly Data on " + document.getElementById("futurelist").value
-                                            },
-                                            axisY: {
-
-                                                minimum: 0,
-                                                maximum: 40,
-                                                title: "Available Bikes",
-                                                titleFontColor: "#04B486",
-                                                lineColor: "#04B486",
-                                                labelFontColor: "#04B486",
-                                                tickColor: "#04B486"
-                                            },
-                                            axisY2: {
-
-                                                minimum: 0,
-                                                maximum: 40,
-                                                title: "Available Stands",
-                                                titleFontColor: "#F75000",
-                                                lineColor: "#F75000",
-                                                labelFontColor: "#F75000",
-                                                tickColor: "#F75000"
-                                            },
-                                            toolTip: {
-                                                shared: true
-                                            },
-                                            legend: {
-                                                cursor: "pointer",
-                                                itemclick: columntoggleDataSeries
-                                            },
-                                            data: [{
-                                                    type: "column",
-                                                    name: "Available Bikes",
-                                                    legendText: "Available Bikes",
-                                                    showInLegend: true,
-                                                    color: "#04B486",
-                                                    dataPoints: [{
-                                                            label: "0:00 - 1:00",
-                                                            y: predict_data[daylater()][station_li[" " + data.address + " "]][0]
-                                                        },
-                                                        {
-                                                            label: "1:00 - 2:00",
-                                                            y: li_bike_hourly[k][1]
-                                                        },
-                                                        {
-                                                            label: "2:00 - 3:00",
-                                                            y: li_bike_hourly[k][2]
-                                                        },
-                                                        {
-                                                            label: "3:00 - 4:00",
-                                                            y: li_bike_hourly[k][3]
-                                                        },
-                                                        {
-                                                            label: "4:00 - 5:00",
-                                                            y: li_bike_hourly[k][4]
-                                                        },
-                                                        {
-                                                            label: "5:00 - 6:00",
-                                                            y: li_bike_hourly[k][5]
-                                                        },
-                                                        {
-                                                            label: "6:00 - 7:00",
-                                                            y: li_bike_hourly[k][6]
-                                                        },
-                                                        {
-                                                            label: "7:00 - 8:00",
-                                                            y: li_bike_hourly[k][7]
-                                                        },
-                                                        {
-                                                            label: "8:00 - 9:00",
-                                                            y: li_bike_hourly[k][8]
-                                                        },
-                                                        {
-                                                            label: "9:00 - 10:00",
-                                                            y: li_bike_hourly[k][9]
-                                                        },
-                                                        {
-                                                            label: "10:00 - 11:00",
-                                                            y: li_bike_hourly[k][10]
-                                                        },
-                                                        {
-                                                            label: "11:00 - 12:00",
-                                                            y: li_bike_hourly[k][11]
-                                                        },
-                                                        {
-                                                            label: "12:00 - 13:00",
-                                                            y: li_bike_hourly[k][12]
-                                                        },
-                                                        {
-                                                            label: "13:00 - 44:00",
-                                                            y: li_bike_hourly[k][13]
-                                                        },
-                                                        {
-                                                            label: "14:00 - 15:00",
-                                                            y: li_bike_hourly[k][14]
-                                                        },
-                                                        {
-                                                            label: "15:00 - 16:00",
-                                                            y: li_bike_hourly[k][15]
-                                                        },
-                                                        {
-                                                            label: "16:00 - 17:00",
-                                                            y: li_bike_hourly[k][16]
-                                                        },
-                                                        {
-                                                            label: "17:00 - 18:00",
-                                                            y: li_bike_hourly[k][17]
-                                                        },
-                                                        {
-                                                            label: "18:00 - 19:00",
-                                                            y: li_bike_hourly[k][18]
-                                                        },
-                                                        {
-                                                            label: "19:00 - 20:00",
-                                                            y: li_bike_hourly[k][19]
-                                                        },
-                                                        {
-                                                            label: "20:00 - 21:00",
-                                                            y: li_bike_hourly[k][20]
-                                                        },
-                                                        {
-                                                            label: "21:00 - 22:00",
-                                                            y: li_bike_hourly[k][21]
-                                                        },
-                                                        {
-                                                            label: "22:00 - 23:00",
-                                                            y: li_bike_hourly[k][22]
-                                                        },
-                                                        {
-                                                            label: "23:00 - 0:00",
-                                                            y: li_bike_hourly[k][23]
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    type: "column",
-                                                    name: "Available Stands",
-                                                    legendText: "Available Stands",
-                                                    axisYType: "secondary",
-                                                    showInLegend: true,
-                                                    color: "#F75000",
-                                                    dataPoints: [{
-                                                            label: "0:00 - 1:00",
-                                                            y: li_bike_stands_hourly[k][0]
-                                                        },
-                                                        {
-                                                            label: "1:00 - 2:00",
-                                                            y: li_bike_stands_hourly[k][1]
-                                                        },
-                                                        {
-                                                            label: "2:00 - 3:00",
-                                                            y: li_bike_stands_hourly[k][2]
-                                                        },
-                                                        {
-                                                            label: "3:00 - 4:00",
-                                                            y: li_bike_stands_hourly[k][3]
-                                                        },
-                                                        {
-                                                            label: "4:00 - 5:00",
-                                                            y: li_bike_stands_hourly[k][4]
-                                                        },
-                                                        {
-                                                            label: "5:00 - 6:00",
-                                                            y: li_bike_stands_hourly[k][5]
-                                                        },
-                                                        {
-                                                            label: "6:00 - 7:00",
-                                                            y: li_bike_stands_hourly[k][6]
-                                                        },
-                                                        {
-                                                            label: "7:00 - 8:00",
-                                                            y: li_bike_stands_hourly[k][7]
-                                                        },
-                                                        {
-                                                            label: "8:00 - 9:00",
-                                                            y: li_bike_stands_hourly[k][8]
-                                                        },
-                                                        {
-                                                            label: "9:00 - 10:00",
-                                                            y: li_bike_stands_hourly[k][9]
-                                                        },
-                                                        {
-                                                            label: "10:00 - 11:00",
-                                                            y: li_bike_stands_hourly[k][10]
-                                                        },
-                                                        {
-                                                            label: "11:00 - 12:00",
-                                                            y: li_bike_stands_hourly[k][11]
-                                                        },
-                                                        {
-                                                            label: "12:00 - 13:00",
-                                                            y: li_bike_stands_hourly[k][12]
-                                                        },
-                                                        {
-                                                            label: "13:00 - 44:00",
-                                                            y: li_bike_stands_hourly[k][13]
-                                                        },
-                                                        {
-                                                            label: "14:00 - 15:00",
-                                                            y: li_bike_stands_hourly[k][14]
-                                                        },
-                                                        {
-                                                            label: "15:00 - 16:00",
-                                                            y: li_bike_stands_hourly[k][15]
-                                                        },
-                                                        {
-                                                            label: "16:00 - 17:00",
-                                                            y: li_bike_stands_hourly[k][16]
-                                                        },
-                                                        {
-                                                            label: "17:00 - 18:00",
-                                                            y: li_bike_stands_hourly[k][17]
-                                                        },
-                                                        {
-                                                            label: "18:00 - 19:00",
-                                                            y: li_bike_stands_hourly[k][18]
-                                                        },
-                                                        {
-                                                            label: "19:00 - 20:00",
-                                                            y: li_bike_stands_hourly[k][19]
-                                                        },
-                                                        {
-                                                            label: "20:00 - 21:00",
-                                                            y: li_bike_stands_hourly[k][20]
-                                                        },
-                                                        {
-                                                            label: "21:00 - 22:00",
-                                                            y: li_bike_stands_hourly[k][21]
-                                                        },
-                                                        {
-                                                            label: "22:00 - 23:00",
-                                                            y: li_bike_stands_hourly[k][22]
-                                                        },
-                                                        {
-                                                            label: "23:00 - 0:00",
-                                                            y: li_bike_stands_hourly[k][23]
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        });
-                                        columnchart.render();
-
-                                        function columntoggleDataSeries(e) {
-                                            if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
-                                                e.dataSeries.visible = false;
-                                            } else {
-                                                e.dataSeries.visible = true;
-                                            }
-                                            columnchart.render();
-                                        }
-
-
-
                                     }
 
                                 });
@@ -851,6 +569,697 @@ function myObject() {
 
 
 
+function choose() {
+        var getUrl = window.location;
+
+    var stations_Url = getUrl.protocol + "//" + getUrl.host + "/" + "stations";
+    var available_Url = getUrl.protocol + "//" + getUrl.host + "/" + "available/";
+    var predict_Url = getUrl.protocol + "//" + getUrl.host + "/" + "predict";
+    var basicurl = available_Url;
+    
+                $.ajax({
+                url: predict_Url,
+                type: "get",
+                dataType: "json",
+                success: function (content) {
+    // This function is used to show a specific station we selected by searching module.
+                    var predict_data = content.prediction_data;
+                    var address_list = content.stations_li;
+
+
+
+    var everystation = JSON.parse(xmlhttp.responseText).stations;
+    var mapOptions = {
+        center: new google.maps.LatLng(53.346763, -6.2568436),
+        zoom: 13,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var infoWindow = new google.maps.InfoWindow();
+    var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+    var bikestation = document.getElementById("stationlist").value;
+    var trigger = true;
+    for (var i = 0; i < everystation.length; i++) {
+        var data = everystation[i];
+
+
+
+        if (bikestation == data.address) {
+          
+            
+            var myLatlng = new google.maps.LatLng(data.position_lat, data.position_lng);
+            latest_address = data.address;
+            if (data.available_bikes <= 5 && data.available_bikes > 0) {
+                var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+
+                });
+            } else if (data.available_bikes > 5) {
+                var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+
+                });
+            } else {
+                var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                });
+            }
+
+
+                    $.ajax({
+                        url: basicurl + data.number,
+                        type: "get",
+                        dataType: "json",
+                        success: function (content) {
+                            var bikes = content.station_recent;
+                            var bikes = content.station_recent;
+                            var li_bike_weekly = content.li_bike_weekly;
+                            var li_bike_stands_weekly = content.li_bike_stands_weekly;
+                            var li_bike_hourly = content.li_bike_hourly;
+                            var li_bike_stands_hourly = content.li_bike_stands_hourly;
+
+
+                                    var chart = new CanvasJS.Chart("weekly", {
+                                            animationEnabled: true,
+                                            theme: "dark2",
+                                            title: {
+                                                text: "Hourly Prediction: " + document.getElementById("futurelist").value
+                                            },
+                                            axisY: {
+                                                includeZero: true,
+                                                minimum: 0
+                                            },
+                                            legend: {
+                                                cursor: "pointer",
+                                                dockInsidePlotArea: true,
+                                                itemclick: toggleDataSeries
+                                            },
+                                            data: [
+                                                {
+                                                    type: "line",
+                                                    showInLegend: true,
+                                                    name: "Available Stands",
+                                                    color: "#CE0000",
+                                                    dataPoints: [
+                                                        {
+                                                            label: "0:00 - 1:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][0]
+                                                        },
+                                                        {
+                                                            label: "1:00 - 2:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][1]
+                                                        },
+                                                        {
+                                                            label: "2:00 - 3:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][2]
+                                                        },
+                                                        {
+                                                            label: "3:00 - 4:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][3]
+                                                        },
+                                                        {
+                                                            label: "4:00 - 5:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][4]
+                                                        },
+                                                        {
+                                                            label: "5:00 - 6:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][5]
+                                                        },
+                                                        {
+                                                            label: "6:00 - 7:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][6]
+                                                        },
+                                                        {
+                                                            label: "7:00 - 8:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][7]
+                                                        },
+                                                        {
+                                                            label: "8:00 - 9:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][8]
+                                                        },
+                                                        {
+                                                            label: "9:00 - 10:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][9]
+                                                        },
+                                                        {
+                                                            label: "10:00 - 11:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][10]
+                                                        },
+                                                        {
+                                                            label: "11:00 - 12:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][11]
+                                                        },
+                                                        {
+                                                            label: "12:00 - 13:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][12]
+                                                        },
+                                                        {
+                                                            label: "13:00 - 44:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][13]
+                                                        },
+                                                        {
+                                                            label: "14:00 - 15:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][14]
+                                                        },
+                                                        {
+                                                            label: "15:00 - 16:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][15]
+                                                        },
+                                                        {
+                                                            label: "16:00 - 17:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][16]
+                                                        },
+                                                        {
+                                                            label: "17:00 - 18:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][17]
+                                                        },
+                                                        {
+                                                            label: "18:00 - 19:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][18]
+                                                        },
+                                                        {
+                                                            label: "19:00 - 20:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][19]
+                                                        },
+                                                        {
+                                                            label: "20:00 - 21:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][20]
+                                                        },
+                                                        {
+                                                            label: "21:00 - 22:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][21]
+                                                        },
+                                                        {
+                                                            label: "22:00 - 23:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][22]
+                                                        },
+                                                        {
+                                                            label: "23:00 - 0:00",
+                                                            y: predict_data[daylater()][address_list[latest_address]][23]
+                                                        }
+
+                                                    ]
+                                                }
+                                            ]
+                                        });
+                                        chart.render();
+
+
+                                        function toggleDataSeries(f) {
+                                            if (typeof (f.dataSeries.visible) === "undefined" || f.dataSeries.visible) {
+                                                f.dataSeries.visible = false;
+                                            } else {
+                                                f.dataSeries.visible = true;
+                                            }
+                                            chart.render();
+                                        }
+
+
+                        }
+                    });
+
+
+
+            (function (marker, data) {
+                google.maps.event.addListener(marker, "click", function (event) {
+
+
+                    
+                    $.ajax({
+                        url: basicurl + data.number,
+                        type: "get",
+                        dataType: "json",
+                        success: function (content) {
+                            var bikes = content.station_recent;
+                            var bikes = content.station_recent;
+                            var li_bike_weekly = content.li_bike_weekly;
+                            var li_bike_stands_weekly = content.li_bike_stands_weekly;
+                            var li_bike_hourly = content.li_bike_hourly;
+                            var li_bike_stands_hourly = content.li_bike_stands_hourly;
+
+
+                                    var chart = new CanvasJS.Chart("weekly", {
+                                            animationEnabled: true,
+                                            theme: "dark2",
+                                            title: {
+                                                text: "Hourly Prediction: " + document.getElementById("futurelist").value
+                                            },
+                                            axisY: {
+                                                includeZero: true,
+                                                minimum: 0
+                                            },
+                                            legend: {
+                                                cursor: "pointer",
+                                                dockInsidePlotArea: true,
+                                                itemclick: toggleDataSeries
+                                            },
+                                            data: [
+                                                {
+                                                    type: "line",
+                                                    showInLegend: true,
+                                                    name: "Available Stands",
+                                                    color: "#CE0000",
+                                                    dataPoints: [
+                                                        {
+                                                            label: "0:00 - 1:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][0]
+                                                        },
+                                                        {
+                                                            label: "1:00 - 2:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][1]
+                                                        },
+                                                        {
+                                                            label: "2:00 - 3:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][2]
+                                                        },
+                                                        {
+                                                            label: "3:00 - 4:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][3]
+                                                        },
+                                                        {
+                                                            label: "4:00 - 5:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][4]
+                                                        },
+                                                        {
+                                                            label: "5:00 - 6:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][5]
+                                                        },
+                                                        {
+                                                            label: "6:00 - 7:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][6]
+                                                        },
+                                                        {
+                                                            label: "7:00 - 8:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][7]
+                                                        },
+                                                        {
+                                                            label: "8:00 - 9:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][8]
+                                                        },
+                                                        {
+                                                            label: "9:00 - 10:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][9]
+                                                        },
+                                                        {
+                                                            label: "10:00 - 11:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][10]
+                                                        },
+                                                        {
+                                                            label: "11:00 - 12:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][11]
+                                                        },
+                                                        {
+                                                            label: "12:00 - 13:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][12]
+                                                        },
+                                                        {
+                                                            label: "13:00 - 44:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][13]
+                                                        },
+                                                        {
+                                                            label: "14:00 - 15:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][14]
+                                                        },
+                                                        {
+                                                            label: "15:00 - 16:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][15]
+                                                        },
+                                                        {
+                                                            label: "16:00 - 17:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][16]
+                                                        },
+                                                        {
+                                                            label: "17:00 - 18:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][17]
+                                                        },
+                                                        {
+                                                            label: "18:00 - 19:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][18]
+                                                        },
+                                                        {
+                                                            label: "19:00 - 20:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][19]
+                                                        },
+                                                        {
+                                                            label: "20:00 - 21:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][20]
+                                                        },
+                                                        {
+                                                            label: "21:00 - 22:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][21]
+                                                        },
+                                                        {
+                                                            label: "22:00 - 23:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][22]
+                                                        },
+                                                        {
+                                                            label: "23:00 - 0:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][23]
+                                                        }
+
+                                                    ]
+                                                }
+                                            ]
+                                        });
+                                        chart.render();
+
+
+                                        function toggleDataSeries(f) {
+                                            if (typeof (f.dataSeries.visible) === "undefined" || f.dataSeries.visible) {
+                                                f.dataSeries.visible = false;
+                                            } else {
+                                                f.dataSeries.visible = true;
+                                            }
+                                            chart.render();
+                                        }
+
+
+                            infoWindow.setContent("<div style = 'width: 200px; min-height: 40px; font-style: italic; font-weight: 800'>" + "Last Updated Time: " + "<br>" + bikes.time + "<br><br>" + "Station Number: " + data.number + "<br>" + "Full Address: " + data.address + "<br>" + "Position: " + data.position_lat + ", " + data.position_lng + "<br>" + "Contract Name: " + data.contract_name + "<br><br>" + "Available Bikes: " + bikes.available_bikes + "<br>" + "Bike Stands: " + bikes.bike_stands + "<br>" + "Available Bikes Stands: " + bikes.available_bike_stands + "<br>" + "Bonus: " + data.bonus + "<br>" + "Status: " + bikes.status + "</div>");
+                            infoWindow.open(map, marker);
+
+                        }
+                    });
+   
+                });
+            })(marker, data);
+        } else if (bikestation == '') {
+            // The case when the selection bar is null without a station selected.
+
+            if (trigger == true) {
+
+                var chart = new CanvasJS.Chart("weekly", {
+                        animationEnabled: false,
+                        theme: "dark2",
+                        title: {
+                            text: "Hourly Prediction: " + document.getElementById("futurelist").value
+                        },
+                        data: [{
+                            type: "line",
+                            dataPoints: [{
+                                    label: "0:00 - 1:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "1:00 - 2:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "2:00 - 3:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "3:00 - 4:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "4:00 - 5:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "5:00 - 6:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "6:00 - 7:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "7:00 - 8:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "8:00 - 9:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "9:00 - 10:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "10:00 - 11:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "11:00 - 12:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "12:00 - 13:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "13:00 - 44:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "14:00 - 15:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "15:00 - 16:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "16:00 - 17:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "17:00 - 18:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "18:00 - 19:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "19:00 - 20:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "20:00 - 21:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "21:00 - 22:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "22:00 - 23:00",
+                                    y: null
+                                                        },
+                                {
+                                    label: "23:00 - 0:00",
+                                    y: null
+                                                        }
+
+                            ]
+                        }]
+                    });
+                    chart.render();
+
+
+                trigger = false;
+            }
+
+
+
+            var myLatlng = new google.maps.LatLng(data.position_lat, data.position_lng);
+            if (data.available_bikes <= 5 && data.available_bikes > 0) {
+                var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
+
+                });
+            } else if (data.available_bikes > 5) {
+                var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+
+                });
+            } else {
+                var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    map: map,
+                    icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+                });
+            }
+
+
+            (function (marker, data) {
+                google.maps.event.addListener(marker, "click", function (event) {
+
+
+                    
+                    
+                    
+                    $.ajax({
+                        url: basicurl + data.number,
+                        type: "get",
+                        dataType: "json",
+                        success: function (content) {
+                            var bikes = content.station_recent;
+                            var li_bike_weekly = content.li_bike_weekly;
+                            var li_bike_stands_weekly = content.li_bike_stands_weekly;
+                            var li_bike_hourly = content.li_bike_hourly;
+                            var li_bike_stands_hourly = content.li_bike_stands_hourly;
+
+
+
+                            var chart = new CanvasJS.Chart("weekly", {
+                                            animationEnabled: true,
+                                            theme: "dark2",
+                                            title: {
+                                                text: "Hourly Prediction: " + document.getElementById("futurelist").value
+                                            },
+                                            axisY: {
+                                                includeZero: true,
+                                                minimum: 0
+                                            },
+                                            legend: {
+                                                cursor: "pointer",
+                                                dockInsidePlotArea: true,
+                                                itemclick: toggleDataSeries
+                                            },
+                                            data: [
+                                                {
+                                                    type: "line",
+                                                    showInLegend: true,
+                                                    name: "Available Stands",
+                                                    color: "#CE0000",
+                                                    dataPoints: [
+                                                        {
+                                                            label: "0:00 - 1:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][0]
+                                                        },
+                                                        {
+                                                            label: "1:00 - 2:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][1]
+                                                        },
+                                                        {
+                                                            label: "2:00 - 3:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][2]
+                                                        },
+                                                        {
+                                                            label: "3:00 - 4:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][3]
+                                                        },
+                                                        {
+                                                            label: "4:00 - 5:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][4]
+                                                        },
+                                                        {
+                                                            label: "5:00 - 6:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][5]
+                                                        },
+                                                        {
+                                                            label: "6:00 - 7:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][6]
+                                                        },
+                                                        {
+                                                            label: "7:00 - 8:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][7]
+                                                        },
+                                                        {
+                                                            label: "8:00 - 9:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][8]
+                                                        },
+                                                        {
+                                                            label: "9:00 - 10:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][9]
+                                                        },
+                                                        {
+                                                            label: "10:00 - 11:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][10]
+                                                        },
+                                                        {
+                                                            label: "11:00 - 12:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][11]
+                                                        },
+                                                        {
+                                                            label: "12:00 - 13:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][12]
+                                                        },
+                                                        {
+                                                            label: "13:00 - 44:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][13]
+                                                        },
+                                                        {
+                                                            label: "14:00 - 15:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][14]
+                                                        },
+                                                        {
+                                                            label: "15:00 - 16:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][15]
+                                                        },
+                                                        {
+                                                            label: "16:00 - 17:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][16]
+                                                        },
+                                                        {
+                                                            label: "17:00 - 18:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][17]
+                                                        },
+                                                        {
+                                                            label: "18:00 - 19:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][18]
+                                                        },
+                                                        {
+                                                            label: "19:00 - 20:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][19]
+                                                        },
+                                                        {
+                                                            label: "20:00 - 21:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][20]
+                                                        },
+                                                        {
+                                                            label: "21:00 - 22:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][21]
+                                                        },
+                                                        {
+                                                            label: "22:00 - 23:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][22]
+                                                        },
+                                                        {
+                                                            label: "23:00 - 0:00",
+                                                            y: predict_data[daylater()][address_list[data.address]][23]
+                                                        }
+
+                                                    ]
+                                                }
+                                            ]
+                                        });
+                                        chart.render();
+
+
+                                        function toggleDataSeries(f) {
+                                            if (typeof (f.dataSeries.visible) === "undefined" || f.dataSeries.visible) {
+                                                f.dataSeries.visible = false;
+                                            } else {
+                                                f.dataSeries.visible = true;
+                                            }
+                                            chart.render();
+                                        }
+
+
+                            infoWindow.setContent("<div style = 'width:200px;min-height:40px'>" + "Last Updated Time: " + "<br>" + bikes.time + "<br><br>" + "Station Number: " + data.number + "<br>" + "Full Address: " + data.address + "<br>" + "Position: " + data.position_lat + ", " + data.position_lng + "<br>" + "Contract Name: " + data.contract_name + "<br><br>" + "Available Bikes: " + bikes.available_bikes + "<br>" + "Bike Stands: " + bikes.bike_stands + "<br>" + "Available Bikes Stands: " + bikes.available_bike_stands + "<br>" + "Bonus: " + data.bonus + "<br>" + "Status: " + bikes.status + "</div>");
+                            infoWindow.open(map, marker);
+                        }
+                    });
+
+                });
+            })(marker, data);
+        }
+    }
+}
+});
+}
 
 
 

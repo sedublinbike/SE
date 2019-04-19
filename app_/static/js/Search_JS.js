@@ -323,7 +323,7 @@ function myObject() {
                         icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
 
                     });
-                } else if (data.available_bikes >= data.available_bike_stands) {
+                } else if (data.available_bikes >5) {
                     var marker = new google.maps.Marker({
                         position: myLatlng,
                         map: map,
@@ -845,7 +845,7 @@ function choose() {
                     icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
 
                 });
-            } else if (data.available_bikes >= data.available_bike_stands) {
+            } else if (data.available_bikes >5) {
                 var marker = new google.maps.Marker({
                     position: myLatlng,
                     map: map,
@@ -1875,7 +1875,7 @@ function choose() {
                     icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png',
 
                 });
-            } else if (data.available_bikes >= data.available_bike_stands) {
+            } else if (data.available_bikes > 5) {
                 var marker = new google.maps.Marker({
                     position: myLatlng,
                     map: map,
