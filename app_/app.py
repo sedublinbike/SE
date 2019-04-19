@@ -1,19 +1,12 @@
 from flask import Flask, render_template, jsonify ,request    
 from flask_sqlalchemy import SQLAlchemy
 import pandas as pd
-from sqlalchemy import func,extract
-from _operator import not_
 import datetime
 # flask edition:0.12
 import time
-import os
-import datetime
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.feature_extraction import DictVectorizer
 from app_.translate_time import TimeStampToTime,get_FileModifyTime
-from prediction.predictor import predict_,predict_model,create_predict_set
+from prediction.predictor import predict_,create_predict_set
 import joblib
-from flask.helpers import url_for
 
 class Config(object):
     """setting the configuration"""
@@ -196,6 +189,40 @@ def predict():
     prediction_data_final = [[[prediction_data[k]*1.0 for k in range(i*113*24+j*24,i*113*24+j*24+24)] for j in range(113)] for i in range(7)]
     return jsonify(prediction_data = prediction_data_final,stations_li = station_li)
 
-
+@app.route("/predict_by_id")
+def predict_by_id():
+    '''this function is designed to predict the available bike stands for the stations'''
+    file_modify_time =  get_FileModifyTime('dbbikes_model.pkl')
+    now = TimeStampToTime(time.time())
+    station_id = request.args.get('station_id')
+    weekday = request.args.get('weekday')
+    #if the model trained already is not match the day predict,then the function will train the model again and predict
+    if now == file_modify_time:
+        model = joblib.load("dbbikes_model.pkl")
+    else:
+        rows = db.session.query(Station.number,Station.available_bikes,Station.available_bike_stands,Station.weather,Station.temperature,Station.time).filter(Station.weather.isnot(None)).order_by(Station.time.desc()).all()
+        df = pd.DataFrame(rows,columns = ['number','available_bikes','available_bike_stands','weather','temperature','time'])
+        predict_(df)
+        model = joblib.load("dbbikes_model.pkl")
+        
+    #create a dictionary to store the index of address in the list which will be sent back to front-end,it is 
+    stations = StationFix.query.all()
+    station_li = {}
+    for station in stations:
+        station = station.to_dict()
+        station_li[station['address']]=station['number']
+    for station in station_li.keys():
+        if station_li[station]<=19:
+            station_li[station] = station_li[station]-2
+        else:
+            station_li[station] = station_li[station]-3
+            
+            
+    df = create_predict_set()
+    prediction_data = list(model.predict(df))
+    
+    #return a list-like dictionary for convenience of aquiring the data by the front-end
+    prediction_data_final = [[[prediction_data[k]*1.0 for k in range(i*113*24+j*24,i*113*24+j*24+24)] for j in range(113)] for i in range(7)]
+    return jsonify(prediction_data = prediction_data_final,stations_li = station_li)
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0',port=5000)
