@@ -1,245 +1,193 @@
-
-            var getUrl = window.location;
-
-            var stations_Url = getUrl .protocol + "//" + getUrl.host + "/" + "stations";
-
+var getUrl = window.location;
+//  This function will get which day it is today.
+var stations_Url = getUrl.protocol + "//" + getUrl.host + "/" + "stations";
 
 
 var xmlhttp = new XMLHttpRequest();
-        var link = stations_Url;
+var link = stations_Url;
 
-        xmlhttp.onreadystatechange = function() {
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                var parsedObj = JSON.parse(xmlhttp.responseText);
-                getStationList(parsedObj);
-                addressnumber(parsedObj);
-            }
-        };
+xmlhttp.onreadystatechange = function () {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+        var parsedObj = JSON.parse(xmlhttp.responseText);
+        getStationList(parsedObj);
+        addressnumber(parsedObj);
+    }
+};
 
-        xmlhttp.open("GET", link, true);
-        xmlhttp.send();
-
-
-
-
-        function getStationList() {
-            var stationgroup = new Array();
-            var everystation = JSON.parse(xmlhttp.responseText).stations;
-            var bikestation = document.getElementById("stationlist");
-            for (let j = 0; j <= everystation.length; j++) {
-                var stationaddress = everystation[j].address;
-                if (stationgroup.indexOf(stationaddress) == -1) {
-                    bikestation.innerHTML += "<option>" + stationaddress + "</option>";
-                    stationgroup.push(stationaddress);
-                }
+xmlhttp.open("GET", link, true);
+xmlhttp.send();
 
 
 
-            }
 
-        } 
-        
-        
-        
-        
-        
-        
-        
-        function addressnumber() {
-            var dic = new Array();
-            var dicdata = JSON.parse(xmlhttp.responseText).stations;
-            for (let i = 0; i < dicdata.length; i++) {
-            dic[" " + dicdata[i].address + " "] = dicdata[i].number;
-                    }
+function getStationList() {
+    //  This function gets names of all stations and push them into a selection bar.
+    var stationgroup = new Array();
+    var everystation = JSON.parse(xmlhttp.responseText).stations;
+    var bikestation = document.getElementById("stationlist");
+    for (let j = 0; j <= everystation.length; j++) {
+        var stationaddress = everystation[j].address;
+        if (stationgroup.indexOf(stationaddress) == -1) {
+            bikestation.innerHTML += "<option>" + stationaddress + "</option>";
+            stationgroup.push(stationaddress);
         }
-        
-        
-        
-        
 
-    
-     function getweek() {
-            var str = "";
-            var week = new Date().getDay();
-            if (week == 0) {
-                str = "Sunday";
-            } else if (week == 1) {
-                str = "Monday";
-            } else if (week == 2) {
-                str = "Tuesday";
-            } else if (week == 3) {
-                str = "Wednesday";
-            } else if (week == 4) {
-                str = "Thursday";
-            } else if (week == 5) {
-                str = "Friday";
-            } else if (week == 6) {
-                str = "Saturday";
 
-            }
-            return str;
-        }
-        
-        function daylater() {
-            var weeknumber;
-            var week = new Date().getDay();
-            
-            if (document.getElementById("futurelist").value == "One Day Later") {
-                               if (week == 0) {
-                weeknumber = 1;
-            } else if (week == 1) {
-                weeknumber = 2;
-            } else if (week == 2) {
-                weeknumber = 3;
-            } else if (week == 3) {
-                weeknumber = 4;
-            } else if (week == 4) {
-                weeknumber = 5;
-            } else if (week == 5) {
-                weeknumber = 6;
-            } else if (week == 6) {
-                weeknumber = 0;
+
+    }
+
+}
+
+
+function getweek() {
+    //  This function will get which day it is today.
+    var str = "";
+    var week = new Date().getDay();
+    if (week == 0) {
+        str = "Sunday";
+    } else if (week == 1) {
+        str = "Monday";
+    } else if (week == 2) {
+        str = "Tuesday";
+    } else if (week == 3) {
+        str = "Wednesday";
+    } else if (week == 4) {
+        str = "Thursday";
+    } else if (week == 5) {
+        str = "Friday";
+    } else if (week == 6) {
+        str = "Saturday";
+
+    }
+    return str;
+}
+
+function daylater() {
+    // This function will select how many days later the user wants to predict.
+    var weeknumber;
+    var week = new Date().getDay();
+
+    if (document.getElementById("futurelist").value == "One Day Later") {
+        if (week == 0) {
+            weeknumber = 1;
+        } else if (week == 1) {
+            weeknumber = 2;
+        } else if (week == 2) {
+            weeknumber = 3;
+        } else if (week == 3) {
+            weeknumber = 4;
+        } else if (week == 4) {
+            weeknumber = 5;
+        } else if (week == 5) {
+            weeknumber = 6;
+        } else if (week == 6) {
+            weeknumber = 0;
 
         }
 
-            
-        }
-            
-         else if (document.getElementById("futurelist").value == "Two Days Later") {
-            if (week == 0) {
-                weeknumber = 2;
-            } else if (week == 1) {
-                weeknumber = 3;
-            } else if (week == 2) {
-                weeknumber = 4;
-            } else if (week == 3) {
-                weeknumber = 5;
-            } else if (week == 4) {
-                weeknumber = 6;
-            } else if (week == 5) {
-                weeknumber = 0;
-            } else if (week == 6) {
-                weeknumber = 1;
+
+    } else if (document.getElementById("futurelist").value == "Two Days Later") {
+        if (week == 0) {
+            weeknumber = 2;
+        } else if (week == 1) {
+            weeknumber = 3;
+        } else if (week == 2) {
+            weeknumber = 4;
+        } else if (week == 3) {
+            weeknumber = 5;
+        } else if (week == 4) {
+            weeknumber = 6;
+        } else if (week == 5) {
+            weeknumber = 0;
+        } else if (week == 6) {
+            weeknumber = 1;
 
         }
 
-            
-        }
-            
-         else if (document.getElementById("futurelist").value == "Three Days Later") {
-            if (week == 0) {
-                weeknumber = 3;
-            } else if (week == 1) {
-                weeknumber = 4;
-            } else if (week == 2) {
-                weeknumber = 5;
-            } else if (week == 3) {
-                weeknumber = 6;
-            } else if (week == 4) {
-                weeknumber = 0;
-            } else if (week == 5) {
-                weeknumber = 1;
-            } else if (week == 6) {
-                weeknumber = 2;
+
+    } else if (document.getElementById("futurelist").value == "Three Days Later") {
+        if (week == 0) {
+            weeknumber = 3;
+        } else if (week == 1) {
+            weeknumber = 4;
+        } else if (week == 2) {
+            weeknumber = 5;
+        } else if (week == 3) {
+            weeknumber = 6;
+        } else if (week == 4) {
+            weeknumber = 0;
+        } else if (week == 5) {
+            weeknumber = 1;
+        } else if (week == 6) {
+            weeknumber = 2;
 
         }
 
-            
-        }
-            
-         else if (document.getElementById("futurelist").value == "Four Days Later") {
-            if (week == 0) {
-                weeknumber = 4;
-            } else if (week == 1) {
-                weeknumber = 5;
-            } else if (week == 2) {
-                weeknumber = 6;
-            } else if (week == 3) {
-                weeknumber = 0;
-            } else if (week == 4) {
-                weeknumber = 1;
-            } else if (week == 5) {
-                weeknumber = 2;
-            } else if (week == 6) {
-                weeknumber = 3;
+
+    } else if (document.getElementById("futurelist").value == "Four Days Later") {
+        if (week == 0) {
+            weeknumber = 4;
+        } else if (week == 1) {
+            weeknumber = 5;
+        } else if (week == 2) {
+            weeknumber = 6;
+        } else if (week == 3) {
+            weeknumber = 0;
+        } else if (week == 4) {
+            weeknumber = 1;
+        } else if (week == 5) {
+            weeknumber = 2;
+        } else if (week == 6) {
+            weeknumber = 3;
 
         }
 
-            
-        }
-            
-            
-         else if (document.getElementById("futurelist").value == "Five Days Later") {
-            if (week == 0) {
-                weeknumber = 5;
-            } else if (week == 1) {
-                weeknumber = 6;
-            } else if (week == 2) {
-                weeknumber = 0;
-            } else if (week == 3) {
-                weeknumber = 1;
-            } else if (week == 4) {
-                weeknumber = 2;
-            } else if (week == 5) {
-                weeknumber = 3;
-            } else if (week == 6) {
-                weeknumber = 4;
+
+    } else if (document.getElementById("futurelist").value == "Five Days Later") {
+        if (week == 0) {
+            weeknumber = 5;
+        } else if (week == 1) {
+            weeknumber = 6;
+        } else if (week == 2) {
+            weeknumber = 0;
+        } else if (week == 3) {
+            weeknumber = 1;
+        } else if (week == 4) {
+            weeknumber = 2;
+        } else if (week == 5) {
+            weeknumber = 3;
+        } else if (week == 6) {
+            weeknumber = 4;
 
         }
 
-            
-        }
-            
-            
-         else if (document.getElementById("futurelist").value == "Six Days Later") {
-            if (week == 0) {
-                weeknumber = 6;
-            } else if (week == 1) {
-                weeknumber = 0;
-            } else if (week == 2) {
-                weeknumber = 1;
-            } else if (week == 3) {
-                weeknumber = 2;
-            } else if (week == 4) {
-                weeknumber = 3;
-            } else if (week == 5) {
-                weeknumber = 4;
-            } else if (week == 6) {
-                weeknumber = 5;
+
+    } else if (document.getElementById("futurelist").value == "Six Days Later") {
+        if (week == 0) {
+            weeknumber = 6;
+        } else if (week == 1) {
+            weeknumber = 0;
+        } else if (week == 2) {
+            weeknumber = 1;
+        } else if (week == 3) {
+            weeknumber = 2;
+        } else if (week == 4) {
+            weeknumber = 3;
+        } else if (week == 5) {
+            weeknumber = 4;
+        } else if (week == 6) {
+            weeknumber = 5;
 
         }
 
-            
-        }
-            
-            
-    else if (document.getElementById("futurelist").value == "Six Days Later") {
-           weeknumber = week;
-        }
-        return weeknumber;    
-            
-  
-        }
-        
-        
-        
-        
+
+    } else if (document.getElementById("futurelist").value == "Six Days Later") {
+        weeknumber = week;
+    }
+    return weeknumber;
 
 
-
-                (function($) {
-            // Menu Functions
-            $(document).ready(function() {
-                $('#menuToggle').click(function(e) {
-                    var $parent = $(this).parent('nav');
-                    $parent.toggleClass("open");
-                    var navState = $parent.hasClass('open') ? "hide" : "show";
-                    $(this).attr("title", navState + " navigation");
-                    // Set the timeout to the animation length in the CSS.
-                    e.preventDefault();
-                });
-            });
-        })(jQuery);
+}
 
 
 
@@ -247,50 +195,57 @@ var xmlhttp = new XMLHttpRequest();
 
 
 
-        function myObject() {
-            
-            var getUrl = window.location;
+(function ($) {
+    // Menu functions
+    $(document).ready(function () {
+        $('#menuToggle').click(function (e) {
+            var $parent = $(this).parent('nav');
+            $parent.toggleClass("open");
+            var navState = $parent.hasClass('open') ? "hide" : "show";
+            $(this).attr("title", navState + " navigation");
+            // Set the timeout to the animation length in the CSS.
+            e.preventDefault();
+        });
+    });
+})(jQuery);
+ // referranced from https://codepen.io/mambroz/pen/rdFfx, and changed some style and codes based on my case.
 
-            var stations_Url = getUrl .protocol + "//" + getUrl.host + "/" + "stations";
-            var available_Url = getUrl .protocol + "//" + getUrl.host + "/"+"available/";
 
-            
-                                    
-            
-            
-            
-            
-            
-            
-            
-            
+
+
+function myObject() {
+
+    var getUrl = window.location;
+
+    var stations_Url = getUrl.protocol + "//" + getUrl.host + "/" + "stations";
+    var available_Url = getUrl.protocol + "//" + getUrl.host + "/" + "available/";
+    var predict_Url = getUrl.protocol + "//" + getUrl.host + "/" + "predict";
+
+
+    $.ajax({
+        url: stations_Url,
+        // Send a request and get details of all the stations.
+        type: "get",
+        dataType: "json",
+        success: function (content) {
+            var markers = content.stations;
+            var mapOptions = {
+                center: new google.maps.LatLng(53.346763, -6.2568436),
+                zoom: 8,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var infoWindow = new google.maps.InfoWindow();
+            var latlngbounds = new google.maps.LatLngBounds();
+            var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+
             $.ajax({
-                url: stations_Url,
+                url: predict_Url,
+                // Send the prediction result of all stations stored in json format.
                 type: "get",
                 dataType: "json",
-                success: function(content) {
-                    var markers = content.stations;
-                    var mapOptions = {
-                        center: new google.maps.LatLng(53.346763, -6.2568436),
-                        zoom: 8,
-                        mapTypeId: google.maps.MapTypeId.ROADMAP
-                    };
-                    var infoWindow = new google.maps.InfoWindow();
-                    var latlngbounds = new google.maps.LatLngBounds();
-                    var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
-                    
-//                                                    $.ajax({
-//                                    url: "http://127.0.0.1:5000/pridict",
-//                                    type: "get",
-//                                    dataType: "json",
-//                                    success: function(content) {var predict_data = content.prediction_data;
-                                                               
+                success: function (content) {
+                    var predict_data = content.prediction_data;
 
-                    
-                    
-                    
-                    
-                    
 
                     var chart = new CanvasJS.Chart("weekly", {
                         animationEnabled: false,
@@ -349,7 +304,7 @@ var xmlhttp = new XMLHttpRequest();
                             type: "column",
                             dataPoints: [{
                                     label: "0:00 - 1:00",
-                                    y: null
+                                    y: predict_data[daylater()][station_li[" " + data.address + " "]][0]
                                 },
                                 {
                                     label: "1:00 - 2:00",
@@ -447,8 +402,7 @@ var xmlhttp = new XMLHttpRequest();
                         }]
                     });
                     columnchart.render();
-//                                                                }
-//                                                               });
+
 
                     for (var i = 0; i < markers.length; i++) {
 
@@ -478,14 +432,14 @@ var xmlhttp = new XMLHttpRequest();
                             });
                         }
 
-                        (function(marker, data) {
-                            google.maps.event.addListener(marker, "click", function(e) {
+                        (function (marker, data) {
+                            google.maps.event.addListener(marker, "click", function (e) {
                                 var basicurl = available_Url;
                                 $.ajax({
                                     url: basicurl + data.number,
                                     type: "get",
                                     dataType: "json",
-                                    success: function(content) {
+                                    success: function (content) {
                                         var bikes = content.station_recent;
                                         var li_bike_weekly = content.li_bike_weekly;
                                         var li_bike_stands_weekly = content.li_bike_stands_weekly;
@@ -516,7 +470,7 @@ var xmlhttp = new XMLHttpRequest();
                                         infoWindow.open(map, marker);
 
 
-            
+
 
                                         var chart = new CanvasJS.Chart("weekly", {
                                             animationEnabled: true,
@@ -610,7 +564,7 @@ var xmlhttp = new XMLHttpRequest();
 
 
                                         function toggleDataSeries(f) {
-                                            if (typeof(f.dataSeries.visible) === "undefined" || f.dataSeries.visible) {
+                                            if (typeof (f.dataSeries.visible) === "undefined" || f.dataSeries.visible) {
                                                 f.dataSeries.visible = false;
                                             } else {
                                                 f.dataSeries.visible = true;
@@ -623,7 +577,7 @@ var xmlhttp = new XMLHttpRequest();
                                             animationEnabled: true,
                                             theme: "dark2",
                                             title: {
-                                                text: "History Hourly Data on " + getweek()
+                                                text: "History Hourly Data on " + document.getElementById("futurelist").value
                                             },
                                             axisY: {
 
@@ -660,7 +614,7 @@ var xmlhttp = new XMLHttpRequest();
                                                     color: "#04B486",
                                                     dataPoints: [{
                                                             label: "0:00 - 1:00",
-                                                            y: li_bike_hourly[k][0]
+                                                            y: predict_data[daylater()][station_li[" " + data.address + " "]][0]
                                                         },
                                                         {
                                                             label: "1:00 - 2:00",
@@ -866,7 +820,7 @@ var xmlhttp = new XMLHttpRequest();
                                         columnchart.render();
 
                                         function columntoggleDataSeries(e) {
-                                            if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                                            if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
                                                 e.dataSeries.visible = false;
                                             } else {
                                                 e.dataSeries.visible = true;
@@ -888,9 +842,12 @@ var xmlhttp = new XMLHttpRequest();
                     var bounds = new google.maps.LatLngBounds();
                     map.setCenter(latlngbounds.getCenter());
                     map.fitBounds(latlngbounds);
+
                 }
             });
         }
+    });
+}
 
 
 
@@ -900,6 +857,4 @@ var xmlhttp = new XMLHttpRequest();
 
 
 
-        myObject();
-    
-    
+myObject();
