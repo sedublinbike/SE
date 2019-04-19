@@ -77,23 +77,27 @@ class Station(db.Model):
 
 
 
-# this route simply serves the map page
+# this route simply serves the homepage
 @app.route('/')
 def index():
     return render_template('HomePage.html')
 
+# this route simply serves the map page
 @app.route('/all_stations')
 def show_map():
     return render_template('map.html')
 
+# this route simply serves the search page
 @app.route('/search')
 def search_page():
     return render_template('Search.html')
 
+# this route simply serves the map page
 @app.route('/prediction')
 def prediction_page():
     return render_template('Prediction.html')
 
+# this route simply serves the route page
 @app.route('/route')
 def show_teaminfo():
     return render_template('Route.html')
@@ -101,10 +105,11 @@ def show_teaminfo():
 #query all the station and return 'json' file 
 @app.route("/stations")
 def get_all_stations():
-    # query the database
+    '''this function is designed to get all stations information and the latest available stands and bikes'''
     stations = StationFix.query.all()
     stations_recent = db.session.query(Station.number,Station.available_bikes,Station.available_bike_stands).order_by(Station.time.desc()).limit(113).all()
     station_li = []
+    #match the latest information with the stations
     for station in stations:
         station = station.to_dict()
         for row in stations_recent:
@@ -119,12 +124,15 @@ def get_all_stations():
  
 @app.route("/available/<int:station_id>") 
 def get_stations(station_id):
+    '''this function is designed to get information for a special station'''
     station_recent = Station.query.filter_by(number=station_id).order_by(Station.time.desc()).first().to_dict()
     
+    #because of the alternation of daylight saving time and winter time,and the time has not be changed by API,so we change it by hand
     recent_time = datetime.datetime.strptime(station_recent['time'],"%Y-%m-%d_%H:%M:%S")+datetime.timedelta(hours=1)
     if recent_time<datetime.datetime.now():
         station_recent['time'] = str(recent_time)
     
+    #return the mean of available bike stands and bikes together
     rows = db.session.query(Station.time,Station.available_bike_stands,Station.available_bikes).filter_by(number=station_id).order_by(Station.time.desc()).all()
     df = pd.DataFrame(rows,columns = ['time','available_bikes','available_bike_stands'])
     df['time'] = pd.to_datetime(df['time'],format="%Y-%m-%d_%H:%M:%S")
@@ -149,15 +157,17 @@ def get_stations(station_id):
 # weather,no use at this moment,for future
 @app.route("/weather/<int:station_id>")
 def get_weather(station_id):
+    '''return the weather for a special staion'''
     row = db.session.query(Station.weather, Station.icon, Station.temperature, Station.humidity, Station.wind_speed, Station.future_weather, Station.future_temperature, Station.future_icon, Station.time).filter_by(number=station_id).order_by(Station.time.desc()).first()
     return jsonify(station_wheather = row)
 
 @app.route("/predict")
 def predict():
-    
+    '''this function is designed to predict the available bike stands for the stations'''
     file_modify_time =  get_FileModifyTime('dbbikes_model.pkl')
     now = TimeStampToTime(time.time())
     
+    #if the model trained already is not match the day predict,then the function will train the model again and predict
     if now == file_modify_time:
         model = joblib.load("dbbikes_model.pkl")
     else:
@@ -166,6 +176,7 @@ def predict():
         predict_(df)
         model = joblib.load("dbbikes_model.pkl")
         
+    #create a dictionary to store the index of address in the list which will be sent back to front-end,it is 
     stations = StationFix.query.all()
     station_li = {}
     for station in stations:
@@ -180,41 +191,11 @@ def predict():
             
     df = create_predict_set()
     prediction_data = list(model.predict(df))
+    
+    #return a list-like dictionary for convenience of aquiring the data by the front-end
     prediction_data_final = [[[prediction_data[k]*1.0 for k in range(i*113*24+j*24,i*113*24+j*24+24)] for j in range(113)] for i in range(7)]
     return jsonify(prediction_data = prediction_data_final,stations_li = station_li)
 
-# @app.route("/predicta")
-# def predicta():
-#     rows = db.session.query(Station.number,Station.available_bikes,Station.available_bike_stands,Station.weather,Station.temperature,Station.time).filter(Station.weather.isnot(None)).order_by(Station.time.desc()).all()
-#     df = pd.DataFrame(rows,columns = ['number','available_bikes','available_bike_stands','weather','temperature','time'])
-#     predict_(df)
-#     model = joblib.load("dbbikes_model.pkl")
-# 
-#     df = create_predict_set()
-#     prediction_data = list(model.predict(df))
-#     print(prediction_data)
-#     prediction_data_final = [[[prediction_data[k]*1.0 for k in range(i*113*24+j*24,i*113*24+j*24+24)] for j in range(113)] for i in range(7)]
-#     print(prediction_data_final)
-#     return jsonify(prediction_data = prediction_data_final )
-
-# def main():
-#     while True:
-#         try:
-#             file_modify_time =  get_FileModifyTime('dbbikes_model.pkl')
-#             now = TimeStampToTime(time.time())
-#             print(1)
-#             
-#             if now != file_modify_time:
-#                 rows = db.session.query(Station.number,Station.available_bikes,Station.available_bike_stands,Station.weather,Station.temperature,Station.time).filter(Station.weather.isnot(None)).order_by(Station.time.desc()).all()
-#                 df = pd.DataFrame(rows,columns = ['number','available_bikes','available_bike_stands','weather','temperature','time'])
-#                 predict_(df)
-#             time.sleep(10)
-#         except Exception as e :
-#             print(e)
-#             return
 
 if __name__ == '__main__':
     app.run(debug=True,host='0.0.0.0',port=5000)
-#     main()
-
-
