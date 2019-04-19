@@ -89,7 +89,7 @@ function myObject() {
 
             temperature.innerHTML = "<span>" + dublin.temperature + '&#176;C' + "</span>";
             description.innerHTML = "<span>" + dublin.weather + "</span>";
-            humidity.innerHTML = "<span>Humidity: " + dublin.humidity + "</span>";
+            humidity.innerHTML = "<span>Humidity: " + dublin.humidity + "%</span>";
             wind_speed.innerHTML = "<span>Wind Speed: " + dublin.wind_speed + "m/s</span>";
             future_temperature.innerHTML = "<span>" + dublin.future_temperature + "&#176;C</span>";
             future_description.innerHTML = "<span>" + dublin.future_weather + "</span>";
@@ -394,7 +394,7 @@ function myObject() {
 
                                 temperature.innerHTML = "<span>" + bikes.temperature + '&#176;C' + "</span>";
                                 description.innerHTML = "<span>" + bikes.weather + "</span>";
-                                humidity.innerHTML = "<span>Humidity: " + bikes.humidity + "</span>";
+                                humidity.innerHTML = "<span>Humidity: " + bikes.humidity + "%</span>";
                                 wind_speed.innerHTML = "<span>Wind Speed: " + bikes.wind_speed + "m/s</span>";
                                 station_location.innerHTML = "<span>" + data.address + "</span>";
                                 future_temperature.innerHTML = "<span>" + bikes.future_temperature + "&#176;C</span>";
@@ -904,7 +904,7 @@ function choose() {
 
                     temperature.innerHTML = "<span>" + bikes.temperature + '&#176;C' + "</span>";
                     description.innerHTML = "<span>" + bikes.weather + "</span>";
-                    humidity.innerHTML = "<span>Humidity: " + bikes.humidity + "</span>";
+                    humidity.innerHTML = "<span>Humidity: " + bikes.humidity + "%</span>";
                     wind_speed.innerHTML = "<span>Wind Speed: " + bikes.wind_speed + "m/s</span>";
                     future_temperature.innerHTML = "<span>" + bikes.future_temperature + "&#176;C</span>";
                     future_description.innerHTML = "<span>" + bikes.future_weather + "</span>";
