@@ -41,7 +41,7 @@ There are five main functions of this software:
 4)	User-friendly interface and dynamic weather icon.
 
 1.6	Structure
-The Scraper on EC2 runing continuously gets data through JCDecaux API and put the data into AWS RDS. Programmer pull code into Github and clone it into EC2. 问题预测模型放在图中哪里
+The Scraper on EC2 runing continuously gets data through JCDecaux API and put the data into AWS RDS. Programmer pull code into Github and clone it into EC2. 
  
 
 
