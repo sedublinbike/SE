@@ -7,7 +7,7 @@ and provide suggestion for the user about where to find a bike.
 1.	Project Overview
 1.1	Introduction
 Dublin Bike is a public bicycle rental scheme which has operated in the city of Dublin since 2009. As a user-friendly software, Dublin Bike Monitor is mainly used to monitor, analyze and predict the Dublin Bike availability based on the historical data and give guidance for user on their travel plan.
-插图网页最终版本
+
 All of the code/graph/notes are available on GITHUB at: https://github.com/sedublinbike/SE
 And the working EC2 address of the live website is:
 http://35.160.137.228:5000
