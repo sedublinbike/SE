@@ -19,14 +19,14 @@ html, body {height: 100%; padding: 0; margin: 0; border: 0px; overflow-y: hidden
 
 
     <div id="dvMap" style="width: 75%; height: 100%; padding: 0; margin: 0; border: 0; float: right"> </div>
-    <div id="menu" style="width: 25%; height: 100%; float: right">
+    <div id="menu" style="width: 25%; height: 100%; float: right; background-color: #101010">
 
         <div id="predict" style="width: 100%; height: 40%">
             <div style="width: 100%; height: 10%; text-align: center">
-            <h1>Select the Station</h1>  
+            <h1 style="color: gold">Select the Station</h1>  
             </div>
             <div style="width: 100%; height: 15%; position: relative; top: 10%; text-align: center">
-            <select name="stationlist" id="stationlist" onchange="myObject()">
+            <select style="border: solid gold 1px; background-color: #101010; color: gold; width: 50%; height: 50%" name="stationlist" id="stationlist" onchange="choose()">
             <option selected="selected" disabled="disabled" style='display: none' value=''></option>
             </select>
             </div>
@@ -34,10 +34,10 @@ html, body {height: 100%; padding: 0; margin: 0; border: 0px; overflow-y: hidden
             <br>
             <br>
             <div style="width: 100%; height: 10%; text-align: center">
-            <h1>Select the Date</h1>  
+            <h1 style="color: gold">Select the Date</h1>  
             </div>
             <div style="width: 100%; height: 15%; position: relative; top: 10%; text-align: center">
-            <select name="futurelist" id="futurelist" onchange="daylater(); myObject()">
+            <select style="border: solid gold 1px; background-color: #101010; color: gold; width: 30%; height: 50%" name="futurelist" id="futurelist" onchange="choose()">
             <option selected="selected" value="One Day Later" id="onelater">One Day Later</option>
             <option value="Two Days Later" id="twolater">Two Days Later</option>
             <option value="Three Days Later" id="threelater">Three Days Later</option>
@@ -76,7 +76,7 @@ html, body {height: 100%; padding: 0; margin: 0; border: 0px; overflow-y: hidden
 
 
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB13DSvYSxFIptwyDuFm4oqFuAeMJiLDmg&amp;callback=initMap">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFj_OVOzGe5xHdcq4CqpikFfrnk7AP1p8&amp;callback=initMap">
     </script>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <!-- canvas animation   -->
